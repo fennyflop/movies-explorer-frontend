@@ -1,11 +1,11 @@
-.technology {
+.techs {
     width: 100%;
     height: fit-content; 
     box-sizing: border-box;
     padding: 100px 7%;
     background-color: #272727;
 }
-.technology__name {
+.techs__name {
     font-style: normal;
     font-weight: normal;
     font-size: 22px;
@@ -16,7 +16,7 @@
     padding-bottom: 23px;
     border-bottom: 1px solid rgba(218,218,218,1);
 }
-.technology__title {
+.techs__title {
     text-align: center;
     margin: 0 0 26px 0;
     font-style: normal;
@@ -27,7 +27,7 @@
     letter-spacing: -0.04em;
     color: #FFFFFF;
 }
-.technology__text {
+.techs__text {
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -38,13 +38,13 @@
     max-width: 460px;
     margin: 0 auto;
 }
-.technology__skills {
+.techs__skills {
     display: flex;
     justify-content: center;
     width: 100%;
     margin: 100px auto 0;
 }
-.technology__skill {
+.techs__skill {
     /* Box styles */
     box-sizing: border-box;
     width: 90px;
@@ -68,23 +68,23 @@
     letter-spacing: -0.04em;
     color: #FFFFFF;
 }
-.technology__skill:last-of-type {
+.techs__skill:last-of-type {
     margin-right: 0;
 }
 @media screen and (max-width: 700px) {
-    .technology__skills {
+    .techs__skills {
         width: 200px;
         flex-wrap: wrap;
         justify-content: space-between;
         height: fit-content;
     }
-    .technology__skill{
+    .techs__skill{
         margin: 0 0 10px 0;
     }
-    .technology__title {
+    .techs__title {
         font-size: 30px;
     }
-    .technology__text {
+    .techs__text {
         font-size: 11px;
     }
 }
