@@ -1,0 +1,68 @@
+.header {
+    box-sizing: border-box;
+    padding: 0 7%;
+    width: 100%;
+    height: 74px;
+    background-color: #202020;
+    display: flex;
+    align-items: center;
+}
+.header__nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Margin для логотипа */
+
+.header__logo {
+    height: 38px;
+    width: 38px;
+    margin-right: 50px;
+}
+.header__links {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.header__link {
+    color: white;
+    margin-right: 15px;
+}
+.header__link:last-of-type {
+    margin-right: 0;
+}
+.header__profile {
+    display: flex;
+    height: fit-content;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgba(170,170,170, 0.2);
+    box-sizing: border-box;
+    border-radius: 50px;
+    width: 100px;
+    padding: 8px 12px;
+    margin: auto 0;
+}
+.header__profile-icon {
+    width: 12px;
+    height: 14px;
+    margin-right: 7px;
+}
+.header__profile-text {
+    height: fit-content;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: white;
+    margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .header__link {
+        display: none;
+    }
+}

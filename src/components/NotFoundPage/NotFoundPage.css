@@ -1,0 +1,35 @@
+.notfound {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #202020;
+}
+.notfound__title {
+    color: white;
+    margin: 0 auto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 140px;
+    line-height: 169px;
+}
+.notfound__text {
+    color: white;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    margin: 0 auto;
+}
+.notfound__link {
+    color: #4285F4;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    position: absolute;
+    bottom: 8%;
+    right: 50%;
+}
