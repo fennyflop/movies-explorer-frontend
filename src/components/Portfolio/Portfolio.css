@@ -6,7 +6,8 @@
     background: #202020;
 }
 .portfolio__title {
-    font-style: normal;
+    font-style: normal;    
+    font-family: 'Inter', sans-serif;
     font-weight: normal;
     font-size: 18px;
     line-height: 20px;
@@ -25,7 +26,8 @@
     border-bottom: none;
 }
 .portfolio__name {
-    font-style: normal;
+    font-style: normal;    
+    font-family: 'Inter', sans-serif;
     font-weight: normal;
     font-size: 30px;
     line-height: 50px;

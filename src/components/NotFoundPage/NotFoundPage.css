@@ -10,14 +10,16 @@
 .notfound__title {
     color: white;
     margin: 0 auto;
-    font-style: normal;
+    font-style: normal;    
+    font-family: 'Inter', sans-serif;
     font-weight: normal;
     font-size: 140px;
     line-height: 169px;
 }
 .notfound__text {
     color: white;
-    font-style: normal;
+    font-style: normal;    
+    font-family: 'Inter', sans-serif;
     font-weight: normal;
     font-size: 16px;
     line-height: 19px;
@@ -25,7 +27,8 @@
 }
 .notfound__link {
     color: #4285F4;
-    font-style: normal;
+    font-style: normal;    
+    font-family: 'Inter', sans-serif;
     font-weight: normal;
     font-size: 14px;
     line-height: 17px;

@@ -11,7 +11,9 @@
     min-height: 450px;
 }
 .promo__title {
-    font-style: normal;
+
+    font-style: normal;    
+    font-family: 'Inter', sans-serif;
     font-weight: normal;
     font-size: 50px;
     line-height: 58px;
@@ -23,7 +25,8 @@
     margin-bottom: 36px;
 }
 .promo__paragraph {
-    font-style: normal;
+    font-style: normal;    
+    font-family: 'Inter', sans-serif;
     font-weight: normal;
     font-size: 13px;
     line-height: 16px;

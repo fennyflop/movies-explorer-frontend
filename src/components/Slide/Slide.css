@@ -6,7 +6,8 @@
     background: #202020;
 }
 .slide__title {
-    font-style: normal;
+    font-style: normal;    
+    font-family: 'Inter', sans-serif;
     font-weight: normal;
     font-size: 22px;
     line-height: 27px;

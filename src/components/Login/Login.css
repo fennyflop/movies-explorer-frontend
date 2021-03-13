@@ -1,0 +1,135 @@
+.login {
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 70px 7%;
+    background-color: #202020;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login__form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+.login__title {
+    font-style: normal;    
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    /* identical to box height */
+
+
+    color: #FFFFFF;
+    margin: 40px 0;
+}
+.login__logo {
+    width: 38px;
+    height: 38px;
+}
+.login__fieldset {
+    padding: 0;
+    margin: 0;
+    outline: 0;
+    border: 0;
+    margin: 0 0 24px 0;
+    display: flex;
+    flex-direction: column;
+}
+.login__fieldset:last-of-type {
+    margin-bottom: 0;
+}
+.login__label {
+    font-style: normal;    
+    font-family: 'Inter', sans-serif;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;
+
+    color: #8B8B8B;
+    margin-bottom: 5px;
+}
+.login__input {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #424242;
+    background-color: transparent;
+    padding-bottom: 10px;
+    font-style: normal;    
+    font-family: 'Inter', sans-serif;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+    
+    
+    color: #FFFFFF;
+    
+}
+.login__error {
+    font-style: normal;    
+    font-family: 'Inter', sans-serif;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;    
+
+    color: #EE3465;
+    margin: 6px 0 0;
+}
+.login__submit {
+    width: 100%;
+    padding: 13px 0 15px;
+    background: #4285F4;
+    border-radius: 3px;
+    outline: 0;
+    border: 0;
+
+    font-style: normal;    
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+    
+    text-align: center;
+    
+    color: #FFFFFF;
+
+    margin-top: 100px;
+}
+.login__question {
+    font-style: normal;    
+    font-family: 'Inter', sans-serif;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #8B8B8B;
+}
+.login__link {
+    font-style: normal;    
+    font-family: 'Inter', sans-serif;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    text-align: center;
+    text-decoration: none;
+
+    color: #4285F4;
+}
+@media screen and (max-width: 500px) {
+    .login__title {
+        text-align: center;
+    }
+    .login__logo {
+        margin: auto;
+    }
+}
