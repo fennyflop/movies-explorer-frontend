@@ -54,6 +54,24 @@ function Header() {
                     </nav>
                 </header>
             </Route>
+            <Route path="/profile">
+                <header className="header">
+                    <Link to="/">
+                        <img className="header__logo" alt="logo-image" src={logo} />
+                    </Link>
+                    <nav className="header__nav">
+                        <ul className="header__links">
+                            <li className="header__link">Фильмы</li>
+                            <li className="header__link">Сохранённые фильмы</li>
+                        </ul>
+                        <div className="header__profile">
+                            <img className="header__profile-icon" alt="profile-icon" src={profileIcon} />
+                            <p className="header__profile-text">Аккаунт</p>
+                        </div>
+                        <img className="header__burger header__burger-shown" alt="burger" src={burger} />
+                    </nav>
+                </header>
+            </Route>
         </>
     );
 };

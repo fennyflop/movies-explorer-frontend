@@ -12,6 +12,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SavedMoviesCardList from '../SavedMoviesCardList/SavedMoviesCardList';
 import Navigation from '../Navigation/Navigation';
+import Profile from '../Profile/Profile';
 import { Switch, Route } from 'react-router-dom';
 
 function App() {
@@ -32,6 +33,10 @@ function App() {
         </Route>
         <Route path="/signup">
           <Registration />
+        </Route>
+        <Route path="/profile">
+          <Header />
+          <Profile />
         </Route>
         <Route path="/movies">
           <Header />
