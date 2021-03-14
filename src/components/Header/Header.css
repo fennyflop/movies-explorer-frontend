@@ -15,9 +15,6 @@
     justify-content: space-between;
     width: 100%;
 }
-
-/* Margin для логотипа */
-
 .header__logo {
     height: 38px;
     width: 38px;
@@ -29,10 +26,6 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
-}
-.header__link {
-    color: white;
-    margin-right: 15px;
 }
 .header__link:last-of-type {
     margin-right: 0;
@@ -68,33 +61,30 @@
     display: flex;
     margin-left: auto;
 }
-.header__register {
+.header__link {
     font-style: normal;    
     font-family: 'Inter', sans-serif;
-    font-weight: 500;
+    font-weight: thin;
     font-size: 12px;
     line-height: 16px;
     text-decoration: none;
-    /* identical to box height, or 133% */
-    
+    color: white;
+    margin-right: 15px;
+}
+.header__link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+.header__register {
     display: flex;
     align-items: center;
     text-align: right;
-    
     color: #FFFFFF;
     background-color: transparent;
     outline: none;
     border: none;
 }
 .header__login {
-    font-style: normal;    
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    text-decoration: none;
-    /* identical to box height, or 133% */
-    
     display: flex;
     align-items: center;
     

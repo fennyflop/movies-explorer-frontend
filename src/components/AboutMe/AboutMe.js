@@ -13,8 +13,8 @@ function AboutMe() {
                     <p className="aboutme__biography">Я родился и живу в Саратове, закончил факультет экономики СГУ. У меня есть жена
 и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить. С 2015 года работал в компании «СКБ Контур». После того, как прошёл курс по веб-разработке, начал заниматься фриланс-заказами и ушёл с постоянной работы.</p>
                     <ul className="aboutme__contacts">
-                        <li><a className="aboutme__contact">Facebook</a></li>
-                        <li><a className="aboutme__contact">Github</a></li>
+                        <li><a className="aboutme__contact" target="_blank" href="https://www.facebook.com/alex.semochkin.5/">Facebook</a></li>
+                        <li><a className="aboutme__contact" target="_blank" href="https://github.com/fennyflop">Github</a></li>
                     </ul>
                 </div>
                 <img className="aboutme__image" alt="me" src={myImage} />

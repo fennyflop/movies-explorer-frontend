@@ -3,7 +3,10 @@
     height: fit-content; 
     box-sizing: border-box;
     padding: 100px 7%;
-    background: #202020;
+    background-color: #272727;
+}
+.slide:nth-of-type(2n) {
+    background-color: #202020;
 }
 .slide__title {
     font-style: normal;    

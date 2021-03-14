@@ -17,21 +17,18 @@
     display: flex;
 }
 .footer__link {
+    text-decoration: none;
     font-style: normal;    
     font-family: 'Inter', sans-serif;
     font-weight: normal;
     font-size: 13px;
     line-height: 16px;
-    /* identical to box height */
-    
-    text-align: right;
-    
     color: #FFFFFF;
-    margin-right: 20px;
+    margin-left: 20px;
 }
-.footer__link:last-of-type {
-    margin-right: 0;
-    margin-bottom: 0;
+.footer__link:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
 .footer__copyright {
     font-style: normal;    
@@ -39,9 +36,6 @@
     font-weight: normal;
     font-size: 13px;
     line-height: 16px;
-    /* identical to box height */
-    
-    
     color: #FFFFFF;
     margin: 0;
 }
@@ -51,10 +45,7 @@
     font-weight: normal;
     font-size: 13px;
     line-height: 16px;
-    /* identical to box height */
-    
     text-align: center;
-    
     color: #8B8B8B;
     margin: 0 0 20px 0;
 }

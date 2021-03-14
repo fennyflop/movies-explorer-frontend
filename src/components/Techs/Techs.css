@@ -3,7 +3,6 @@
     height: fit-content; 
     box-sizing: border-box;
     padding: 100px 7%;
-    background-color: #272727;
 }
 .techs__name {
     font-style: normal;    
@@ -21,7 +20,7 @@
     text-align: center;
     margin: 0 0 26px 0;
     font-style: normal;    
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Arial' , sans-serif;
     font-weight: normal;
     font-size: 50px;
     line-height: 58px;
@@ -31,7 +30,7 @@
 }
 .techs__text {
     font-style: normal;    
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Arial' , sans-serif;
     font-weight: normal;
     font-size: 14px;
     line-height: 20px;

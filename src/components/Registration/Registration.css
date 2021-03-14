@@ -8,28 +8,6 @@
     justify-content: center;
     align-items: center;
 }
-.registration__form {
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-}
-.registration__title {
-    font-style: normal;    
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 29px;
-    /* identical to box height */
-
-
-    color: #FFFFFF;
-    margin: 40px 0;
-}
-.registration__logo {
-    width: 38px;
-    height: 38px;
-}
 .registration__fieldset {
     padding: 0;
     margin: 0;
@@ -63,11 +41,15 @@
     font-weight: normal;
     font-size: 14px;
     line-height: 17px;
-    /* identical to box height */
-    
-    
     color: #FFFFFF;
-    
+    transition: all .3s ease;
+}
+.registration__input-error {
+    border-bottom: 1px solid #EE3465;
+    color: #EE3465;
+}
+.registration__input:focus {
+    border-bottom: 1px solid #4285F4;
 }
 .registration__error {
     font-style: normal;    
@@ -78,52 +60,6 @@
 
     color: #EE3465;
     margin: 6px 0 0;
-}
-.registration__submit {
-    width: 100%;
-    padding: 13px 0 15px;
-    background: #4285F4;
-    border-radius: 3px;
-    outline: 0;
-    border: 0;
-
-    font-style: normal;    
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    /* identical to box height */
-    
-    text-align: center;
-    
-    color: #FFFFFF;
-
-    margin-top: 100px;
-}
-.registration__question {
-    font-style: normal;    
-    font-family: 'Inter', sans-serif;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 17px;
-    /* identical to box height */
-
-    text-align: center;
-
-    color: #8B8B8B;
-}
-.registration__link {
-    font-style: normal;    
-    font-family: 'Inter', sans-serif;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 17px;
-    text-decoration: none;
-    /* identical to box height */
-
-    text-align: center;
-
-    color: #4285F4;
 }
 @media screen and (max-width: 500px) {
     .registration__title {

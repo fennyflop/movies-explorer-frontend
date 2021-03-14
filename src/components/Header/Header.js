@@ -34,8 +34,8 @@ function Header({ isNotLogged }) {
                                     <img className="header__logo" alt="logo-image" src={logo} />
                                 </Link>
                                 <nav className="header__buttons">
-                                    <NavLink to="/signup" className="header__register">Регистрация</NavLink>
-                                    <NavLink to="/signin" className="header__login">Войти</NavLink>
+                                    <NavLink to="/signup" className="header__link header__register">Регистрация</NavLink>
+                                    <NavLink to="/signin" className="header__link header__login">Войти</NavLink>
                                 </nav>
                             </>
                         )

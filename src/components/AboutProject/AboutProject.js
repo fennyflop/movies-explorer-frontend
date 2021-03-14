@@ -3,7 +3,7 @@ import Slide from '../Slide/Slide';
 
 function AboutProject() {
     return (
-        <Slide title="О проекте" name="about">
+        <Slide title="О проекте" name="about" id="aboutproject">
             <div className="aboutproject__description">
                 <div className="aboutproject__text">
                     <h2 className="aboutproject__headline">Дипломный проект включал 5 этапов</h2>

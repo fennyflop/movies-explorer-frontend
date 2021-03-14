@@ -44,14 +44,19 @@ font-family: 'Inter', sans-serif;
     display: flex;
 }
 .aboutme__contact {
+    text-decoration: none;
     font-style: normal;    
-font-family: 'Inter', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 17px;
     
     color: #FFFFFF;
     margin-right: 20px;
+}
+.aboutme__contact:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
 .aboutme__image {
     object-fit: cover;
