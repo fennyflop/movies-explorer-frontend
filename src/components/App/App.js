@@ -16,11 +16,13 @@ import Profile from '../Profile/Profile';
 import { Switch, Route } from 'react-router-dom';
 
 function App() {
+  // Временное решение с isNotLogged
   return (
     <div className="App">
       <Switch>
         <Route exact path="/">
-          <Header />
+          {/* Временное решение с header */}
+          <Header isNotLogged={true} />
           <Promo />
           <AboutProject />
           <Techs />
