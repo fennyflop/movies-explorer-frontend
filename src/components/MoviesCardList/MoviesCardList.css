@@ -1,12 +1,12 @@
 .movies {
-    padding: 70px 7%;
+    padding: 70px 7% 50px; 
     width: 100%;
     box-sizing: border-box;
     background-color: rgb(32,32,32);
 }
 .movies__list {
     display: grid;
-    grid-template-columns: repeat(4, 270px);
+    grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 16px;
     grid-row-gap: 32px;
     justify-content: space-between;
@@ -34,7 +34,7 @@
     width: 80%;
     padding: 11px 0;
     max-width: 320px;
-    margin: 100px auto 20px;
+    margin: 80px auto 0;
 }
 
 @media screen and (max-width: 1300px) {
