@@ -3,8 +3,8 @@ import './Profile.css';
 function Profile() {
     return (
         <section className="profile">
-            <h1 className="profile__greeting">Привет, Виталий!</h1>
             <form className="profile__form">
+                <h1 className="profile__greeting">Привет, Виталий!</h1>
                 <fieldset className="profile__fieldset">
                     <div className="profile__top">
                         <label className="profile__label" htmlFor="name">Имя</label>
@@ -19,9 +19,11 @@ function Profile() {
                     </div>
                     <input className="profile__input" type="text" />
                 </fieldset>
-                <button className="profile__submit">Редактировать</button>
             </form>
-            <p className="profile__exit">Выйти из аккаунта</p>
+            <div className="profile__buttons">
+                <button className="profile__button profile__submit" type="submit" form="profile">Редактировать</button>
+                <button className="profile__button profile__exit" type="button">Выйти из аккаунта</button>
+            </div>
         </section>
     );
 }
