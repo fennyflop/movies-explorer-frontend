@@ -42,6 +42,12 @@
     background: #4285F4;
     border-radius: 5px;
 }
+.search__submit:hover {
+    cursor: pointer;
+    color: black;
+    background-color: #3DDC84;
+    transition: all .2s ease-in-out;
+}
 .search__checkbox {
     height: 0;
     width: 0;

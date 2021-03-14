@@ -36,6 +36,12 @@
     max-width: 320px;
     margin: 80px auto 0;
 }
+.movies__button:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    transform: scale(1.05);
+    transition: all .2s ease-in-out;
+}
 
 @media screen and (max-width: 1300px) {
     .movies__list {

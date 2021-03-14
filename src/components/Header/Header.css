@@ -30,33 +30,6 @@
 .header__link:last-of-type {
     margin-right: 0;
 }
-.header__profile {
-    display: flex;
-    height: fit-content;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid rgba(170,170,170, 0.2);
-    box-sizing: border-box;
-    border-radius: 50px;
-    width: 100px;
-    padding: 8px 12px;
-    margin: auto 0;
-}
-.header__profile-icon {
-    width: 12px;
-    height: 14px;
-    margin-right: 7px;
-}
-.header__profile-text {
-    height: fit-content;
-    font-style: normal;    
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 16px;
-    color: white;
-    margin: 0;
-}
 .header__buttons {
     display: flex;
     margin-left: auto;
@@ -70,8 +43,27 @@
     text-decoration: none;
     color: white;
     margin-right: 15px;
+    opacity: .8;
+}
+.header__link-active {
+    opacity: 1;
+}
+.header__link:last-of-type {
+    margin-left: 15px;
 }
 .header__link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+.header__button {
+    font-style: normal;    
+    font-family: 'Inter', sans-serif;
+    font-weight: thin;
+    font-size: 12px;
+    line-height: 16px;
+    text-decoration: none;
+}
+.header__button:hover {
     cursor: pointer;
     text-decoration: underline;
 }
@@ -83,13 +75,13 @@
     background-color: transparent;
     outline: none;
     border: none;
+    opacity: 1;
 }
 .header__login {
     display: flex;
     align-items: center;
-    
+    opacity: 1;
     color: #000000;
-
     background: #3DDC84;
     border-radius: 3px;
     border: none;
@@ -114,8 +106,5 @@
     }
     .header__burger {
         display: flex;
-    }
-    .header__profile {
-        display: none;
     }
 }

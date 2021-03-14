@@ -64,6 +64,10 @@
     margin-bottom: 28px;
 }
 
+.navigation__link-opened {
+    border-bottom: 2px solid white;
+}
+
 .navigation__profile {
     display: flex;
     height: fit-content;
@@ -92,7 +96,7 @@
     margin: 0;
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 650px) {
     .navigation__container {
         width: 100%;
     }
