@@ -1,5 +1,4 @@
 import './Movie.css';
-import like from '../../images/like.png';
 
 function Movie({ savedMovie }) {
     return (
