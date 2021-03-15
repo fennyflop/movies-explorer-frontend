@@ -1,3 +1,4 @@
+import './App.css';
 import Header from '../Header/Header';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import Techs from '../Techs/Techs';

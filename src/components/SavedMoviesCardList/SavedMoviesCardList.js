@@ -1,21 +1,21 @@
-import SavedMovie from '../SavedMovie/SavedMovie';
+import Movie from '../Movie/Movie';
 
 function MoviesCardList() {
     return (
         <section className="movies">
             <div className="movies__list">
-                <SavedMovie />
-                <SavedMovie />
-                <SavedMovie />
-                <SavedMovie />
-                <SavedMovie />
-                <SavedMovie />
-                <SavedMovie />
-                <SavedMovie />
-                <SavedMovie />
-                <SavedMovie />
-                <SavedMovie />
-                <SavedMovie />
+                <Movie savedMovie={true} />
+                <Movie savedMovie={true} />
+                <Movie savedMovie={true} />
+                <Movie savedMovie={true} />
+                <Movie savedMovie={true} />
+                <Movie savedMovie={true} />
+                <Movie savedMovie={true} />
+                <Movie savedMovie={true} />
+                <Movie savedMovie={true} />
+                <Movie savedMovie={true} />
+                <Movie savedMovie={true} />
+                <Movie savedMovie={true} />
             </div>
             <button className="movies__button">Ещё</button>
         </section>

@@ -10,6 +10,7 @@
     grid-column-gap: 16px;
     grid-row-gap: 32px;
     justify-content: space-between;
+    margin-bottom: 50px;
 }
 .movies__button {
     font-style: normal;    
