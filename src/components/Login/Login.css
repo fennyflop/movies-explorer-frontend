@@ -22,7 +22,7 @@
 }
 .login__label {
     font-style: normal;    
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Arial' , sans-serif;
     font-weight: normal;
     font-size: 10px;
     line-height: 12px;
@@ -35,9 +35,9 @@
     outline: none;
     border-bottom: 1px solid #424242;
     background-color: transparent;
-    padding-bottom: 10px;
+    padding: 0 0 10px;
     font-style: normal;    
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Arial' , sans-serif;
     font-weight: normal;
     font-size: 14px;
     line-height: 17px;
@@ -53,7 +53,6 @@
 }
 .login__error {
     font-style: normal;    
-    font-family: 'Inter', sans-serif;
     font-weight: normal;
     font-size: 10px;
     line-height: 12px;    

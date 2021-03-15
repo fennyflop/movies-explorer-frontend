@@ -6,7 +6,7 @@
 }
 .userform__title {
     font-style: normal;    
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Arial' , sans-serif;
     font-weight: 500;
     font-size: 24px;
     line-height: 29px;
@@ -20,7 +20,7 @@
 }
 .login__error {
     font-style: normal;    
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Arial' , sans-serif;
     font-weight: normal;
     font-size: 10px;
     line-height: 12px;    
@@ -36,7 +36,7 @@
     outline: 0;
     border: 0;
     font-style: normal;    
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Arial' , sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 17px;
@@ -44,9 +44,22 @@
     color: #FFFFFF;
     margin-top: 100px;
 }
+.userform__submit:disabled:hover {
+    color: white;
+    background-color: #4285F4;
+}
+.userform__submit:hover, .userform__submit:focus {
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    color: black;
+    background-color: #3DDC84;
+}
+.userform__submit:disabled {
+    opacity: .5;
+}
 .userform__question {
     font-style: normal;    
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Arial' , sans-serif;
     font-weight: normal;
     font-size: 14px;
     line-height: 17px;
@@ -55,7 +68,7 @@
 }
 .userform__link {
     font-style: normal;    
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Arial' , sans-serif;
     font-weight: normal;
     font-size: 14px;
     line-height: 17px;

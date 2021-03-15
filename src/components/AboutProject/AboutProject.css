@@ -7,8 +7,7 @@
 }
 .aboutproject__headline {
     font-style: normal;    
-    font-family: 'Inter', sans-serif;    
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Arial' , sans-serif;
     font-weight: normal;
     font-size: 20px;
     line-height: 24px;
@@ -18,7 +17,7 @@
 }
 .aboutproject__paragraph {
     font-style: normal;    
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Arial' , sans-serif;
     font-weight: normal;
     font-size: 14px;
     line-height: 20px;
@@ -53,10 +52,10 @@
     background: #303030;
     color: white;
 }
-.aboutproject__slider-name {
-    font-family: Suisse Intl;
+/* wdwqdqwd */
+.aboutproject__slider-name { 
+    font-family: 'Inter', 'Arial' , sans-serif;
     font-style: normal;    
-    font-family: 'Inter', sans-serif;
     font-weight: normal;
     font-size: 14px;
     line-height: 17px;

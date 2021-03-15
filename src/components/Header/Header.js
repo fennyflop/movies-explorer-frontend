@@ -2,7 +2,7 @@ import './Header.css';
 import logo from '../../images/logo.svg';
 import burger from '../../images/burger.png';
 import ProfileRedirect from '../ProfileRedirect/ProfileRedirect';
-import { Route, Link, NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 function Header({ isNotLogged }) {
     return (

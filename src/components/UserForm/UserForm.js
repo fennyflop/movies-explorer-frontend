@@ -12,7 +12,7 @@ function UserForm(props) {
                     </Link>
                     <h1 className="userform__title">{props.title}</h1>
                     {props.children}
-                    <button className="userform__submit" type="submit">{props.submitName}</button>
+                    <button className="userform__submit" type="submit" disabled>{props.submitName}</button>
                     <p className="userform__question">{props.question} <NavLink to={props.toPath} className="userform__link">{props.linkName}</NavLink></p>
                 </form>
             </section>

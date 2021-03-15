@@ -6,7 +6,7 @@
 }
 .techs__name {
     font-style: normal;    
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Arial' , sans-serif;
     font-weight: normal;
     font-size: 22px;
     line-height: 27px;
@@ -63,7 +63,7 @@
 
     /* Text styles */
     font-style: normal;    
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Arial' , sans-serif;
     font-weight: normal;
     font-size: 14px;
     line-height: 17px;

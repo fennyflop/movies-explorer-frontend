@@ -4,7 +4,7 @@ import ProfileRedirect from '../ProfileRedirect/ProfileRedirect';
 
 function Navigation() {
     return (
-        <section className="navigation navigation__opened">
+        <section className="navigation">
             <div className="navigation__container">
                 <button className="navigation__close"></button>
                 <ul className="navigation__links">

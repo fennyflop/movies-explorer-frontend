@@ -22,7 +22,7 @@
 .footer__link {
     text-decoration: none;
     font-style: normal;    
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Arial' , sans-serif;
     font-weight: normal;
     font-size: 13px;
     line-height: 16px;
@@ -35,7 +35,7 @@
 }
 .footer__copyright {
     font-style: normal;    
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Arial' , sans-serif;
     font-weight: normal;
     font-size: 13px;
     line-height: 16px;
@@ -44,7 +44,7 @@
 }
 .footer__paragraph {
     font-style: normal;    
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Arial' , sans-serif;
     font-weight: normal;
     font-size: 13px;
     line-height: 16px;

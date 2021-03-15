@@ -36,7 +36,7 @@
 }
 .header__link {
     font-style: normal;    
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Arial' , sans-serif;
     font-weight: thin;
     font-size: 12px;
     line-height: 16px;
@@ -57,7 +57,7 @@
 }
 .header__button {
     font-style: normal;    
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Arial' , sans-serif;
     font-weight: thin;
     font-size: 12px;
     line-height: 16px;
