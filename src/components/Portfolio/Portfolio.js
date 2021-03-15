@@ -1,4 +1,5 @@
 import './Portfolio.css';
+import ProjectItem from '../ProjectItem/ProjectItem';
 import arrow from '../../images/arrow.png';
 
 function Portfolio() {
@@ -8,18 +9,9 @@ function Portfolio() {
                 Портфолио
             </h2>
             <div className="portfolio__items">
-                <div className="portfolio__item">
-                    <p className="portfolio__name">Статичный сайт</p>
-                    <img className="portfolio__arrow" alt="arrow" src={arrow} />
-                </div>
-                <div className="portfolio__item">
-                    <p className="portfolio__name">Адаптивный сайт</p>
-                    <img className="portfolio__arrow" alt="arrow" src={arrow} />
-                </div>
-                <div className="portfolio__item">
-                    <p className="portfolio__name">Одностраничное приложение</p>
-                    <img className="portfolio__arrow" alt="arrow" src={arrow} />
-                </div>
+                <ProjectItem name="Статичный сайт" link="https://fennyflop.github.io/how-to-learn/" />
+                <ProjectItem name="Адаптивный сайт" link="https://fennyflop.github.io/russian-travel/" />
+                <ProjectItem name="Одностраничное приложение" link="https://fennyflop.students.nomoreparties.space/sign-in" />
             </div>
         </section>
     );

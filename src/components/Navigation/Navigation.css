@@ -7,6 +7,7 @@
     top: 0;
     visibility: hidden;
     opacity: 0;
+    z-index: 100;
     transition: visibility 0s, opacity 0.5s linear;
 }
 .navigation__opened {
@@ -94,6 +95,10 @@
     line-height: 16px;
     color: white;
     margin: 0;
+}
+.navigation .redirect {
+    display: flex;
+    margin: auto auto 0;
 }
 
 @media screen and (max-width: 650px) {

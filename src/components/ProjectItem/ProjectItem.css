@@ -1,0 +1,32 @@
+.project {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px 0;
+    border-bottom: 1px solid #424242;
+}
+.project:last-of-type {
+    border-bottom: none;
+}
+.project__name {
+    font-style: normal;    
+    font-family: 'Inter', sans-serif;
+    font-weight: normal;
+    font-size: 30px;
+    margin: 0;
+    text-decoration: none;
+    
+    letter-spacing: -0.04em;
+    
+    color: #FFFFFF;
+}
+.project__arrow {
+    object-fit: contain;
+}
+
+@media screen and (max-width: 560px) {
+    .project__name {
+        font-size: 18px;
+    }
+}
