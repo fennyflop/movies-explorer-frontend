@@ -1,0 +1,90 @@
+.movie {
+    background: #222222;
+    box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+}
+.movie__thumbnail {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 151px;
+}
+.movie__info {
+    box-sizing: border-box;
+    padding: 14px 12px;
+    background-color: #222222;
+}
+.movie__toolbar {
+    display: flex;
+    justify-content: space-between;
+}
+.movie__title {
+    font-style: normal;    
+    font-family: 'Inter', 'Arial' , sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    /* identical to box height */
+
+
+    color: #FFFFFF;
+    margin: 0 0 10px 0;
+}
+.movie__duration {
+    font-style: normal;    
+    font-family: 'Inter', 'Arial' , sans-serif;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 13px;
+    display: flex;
+    align-items: center;
+
+    color: #8B8B8B;
+    margin: 0;
+}
+.movie__save {
+    border: none;
+    outline: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #313131;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.movie__save::before {
+    content: "";
+    height: 16px;
+    width: 16px;
+    border: 2px solid white;
+    border-radius: 50%;
+    position: absolute;
+}
+.movie__save:hover {
+    cursor: pointer;
+    transition: all .2s ease;
+    transform: scale(1.1);
+}
+.movie__saved {
+    background-color: #2BE080;
+}
+.movie__delete {
+    height: 16px;
+    width: 16px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-image: url(../../images/cross.png);
+    background-color: transparent;
+    outline: 0;
+    border: 0;
+}
+.movie__delete:hover {
+    cursor: pointer;
+    transition: all .2s ease;
+    transform: scale(1.5) rotateZ(180deg);
+    transition: all 0.4s cubic-bezier(0.54, 0.01, 0, 1.49);
+}

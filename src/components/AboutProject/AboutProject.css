@@ -1,0 +1,83 @@
+.aboutproject__description {
+    display: flex;
+    justify-content: space-between;
+}
+.aboutproject__text {
+    width: 40%;
+}
+.aboutproject__headline {
+    font-style: normal;    
+    font-family: 'Inter', 'Arial' , sans-serif;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+    
+    color: #FFFFFF;
+}
+.aboutproject__paragraph {
+    font-style: normal;    
+    font-family: 'Inter', 'Arial' , sans-serif;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+
+    color: #FFFFFF;
+}
+.aboutproject__progress {
+    width: 100%;
+    height: 36px;
+    display: flex;
+    margin-top: 110px;
+}
+.aboutproject__backend {
+    width: 20%;
+    height: 36px;
+}
+.aboutproject__frontend {
+    width: 80%;
+    height: 36px;
+}
+.aboutproject__slider {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.aboutproject__slider-backend {
+    background: #3DDC84;
+}
+.aboutproject__slider-frontend {
+    background: #303030;
+    color: white;
+}
+/* wdwqdqwd */
+.aboutproject__slider-name { 
+    font-family: 'Inter', 'Arial' , sans-serif;
+    font-style: normal;    
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #8B8B8B;
+    margin: 14px 0 0;
+}
+
+@media screen and (max-width: 767px) {
+    .aboutproject__backend {
+        width: 35%;
+    }
+    .aboutproject__frontend {
+        width: 65%;
+    }
+    .aboutproject__description {
+        flex-direction: column;
+    }
+    .aboutproject__text {
+        width: 100%;
+    }
+    .aboutproject__progress {
+        margin-top: 60px;
+    }
+}
