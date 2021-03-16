@@ -1,0 +1,15 @@
+.noans {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.noans__icon {
+    width: 200px;
+    height: 200px;
+}
+.noans__text {
+    color: #4285F4;
+    font-size: 25px;
+}

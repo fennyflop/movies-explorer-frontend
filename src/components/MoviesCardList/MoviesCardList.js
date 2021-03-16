@@ -1,25 +1,21 @@
 import './MoviesCardList.css';
 import Movie from '../Movie/Movie';
+import QueryNotFound from '../QueryNotFound/QueryNotFound';
 import Preloader from '../Preloader/Preloader';
 
-function MoviesCardList() {
+function MoviesCardList({ movieList, isSearching }) {
+
+
+
     return (
         <section className="movies">
             <div className="movies__list">
-                <Movie />
-                <Movie />
-                <Movie />
-                <Movie />
-                <Movie />
-                <Movie />
-                <Movie />
-                <Movie />
-                <Movie />
-                <Movie />
-                <Movie />
-                <Movie />
+                {movieList.map((movie, i) => {
+                    return <Movie movie={movie} isInSavedMovies={false} key={i} />
+                })}
             </div>
-            <button className="movies__button">Ещё</button>
+            {movieList.length ? '' : <QueryNotFound />}
+            {isSearching ? <Preloader /> : ''}
         </section>
     );
 }

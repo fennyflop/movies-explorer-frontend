@@ -14,9 +14,41 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SavedMoviesCardList from '../SavedMoviesCardList/SavedMoviesCardList';
 import Navigation from '../Navigation/Navigation';
 import Profile from '../Profile/Profile';
+import moviesApi from '../../utils/MoviesApi';
 import { Switch, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 function App() {
+
+  const [movieList, setMovieList] = useState([]);
+  const [searchedMovieList, setSearchedMovieList] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
+
+  useEffect(() => {
+    handleMovies();
+  }, []);
+
+  function handleMovies() {
+    return moviesApi.getMovies()
+      .then((movies) => {
+        setMovieList(movies);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  };
+
+  function handleSearchForm(query, shortFilmsDecision) {
+    setIsSearching(true);
+    const regExp = new RegExp(`${query}`);
+    const validDuration = shortFilmsDecision ? 0 : 40
+
+    setSearchedMovieList(movieList.filter((e) => {
+      return regExp.test(e.nameRU) && e.duration > validDuration;
+    }));
+    setIsSearching(false);
+  }
+
   // Временное решение с isNotLogged
   return (
     <div className="App">
@@ -43,8 +75,8 @@ function App() {
         </Route>
         <Route path="/movies">
           <Header />
-          <SearchForm />
-          <MoviesCardList />
+          <SearchForm handleSearchForm={handleSearchForm} />
+          <MoviesCardList isSearching={isSearching} movieList={searchedMovieList} />
           <Footer />
           <Navigation />
         </Route>

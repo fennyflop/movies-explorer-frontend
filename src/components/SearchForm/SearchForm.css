@@ -50,6 +50,13 @@
     background-color: #3DDC84;
     transition: all .2s ease-in-out;
 }
+.search__submit:disabled {
+    opacity: .8;
+}
+.search__submit:disabled:hover {
+    color: white;
+    background: #4285F4;
+}
 .search__checkbox {
     height: 0;
     width: 0;
