@@ -27,6 +27,7 @@ function App() {
 
   const [isSearching, setIsSearching] = useState(false);
   const [hasAnswers, setHasAnswers] = useState(true); // Не иницирует плейродер сразу
+  const [hasErrors, setHasErrors] = useState(false);
 
   useEffect(() => {
     const movies = localStorage.getItem('movies');
@@ -48,26 +49,41 @@ function App() {
       })
   };
 
-  function handleSearchForm(query, shortFilmsDecision) {
-    // Start searching
+  async function filterMovies(query, shortFilmsDecision) {
+    // Убираем все пред. сообщения
+    setHasAnswers(false);
+    setHasErrors(false);
+    // Начинаем поиск
     setIsSearching(true);
-    // Query params
-    const regExp = new RegExp(`${query}`);
-    const validDuration = shortFilmsDecision ? 0 : 40
-    // Filtered movies
+
+    const regExp = new RegExp(`${query}`, "i");
+    const validDuration = shortFilmsDecision ? 0 : 40;
+
     const filteredMovies = movieList.filter((e) => {
       return regExp.test(e.nameRU) && e.duration > validDuration;
     });
-    // Testing
-    console.log(filteredMovies);
-    if (filteredMovies.length) {
-      setSearchedMovieList(filteredMovies);
-      setHasAnswers(true);
-    } else {
-      setHasAnswers(false)
-    }
-    // Finish search
-    setIsSearching(false);
+
+    return filteredMovies;
+  }
+
+
+  function handleSearchForm(query, shortFilmsDecision) {
+    filterMovies(query, shortFilmsDecision)
+      .then((filteredMovies) => {
+        if (filteredMovies.length) {
+          setSearchedMovieList(filteredMovies);
+          setHasAnswers(true);
+        } else {
+          setHasAnswers(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setHasErrors(true);
+      })
+      .finally(() => {
+        setIsSearching(false);
+      })
   }
 
   // Временное решение с isNotLogged
@@ -97,7 +113,7 @@ function App() {
         <Route path="/movies">
           <Header />
           <SearchForm handleSearchForm={handleSearchForm} hasAnswers={hasAnswers} />
-          <MoviesCardList isSearching={isSearching} movieList={searchedMovieList} hasAnswers={hasAnswers} />
+          <MoviesCardList isSearching={isSearching} movieList={searchedMovieList} hasAnswers={hasAnswers} hasErrors={hasErrors} />
           <Footer />
           <Navigation />
         </Route>

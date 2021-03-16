@@ -1,10 +1,10 @@
 import './QueryNotFound.css';
-import queryNotFoundIcon from '../../images/querynotfound.webp';
+import noansIcon from '../../images/noans.png';
 
 function QueryNotFound() {
     return (
         <section className="noans">
-            <img className="noans__icon" src={queryNotFoundIcon} />
+            <img className="noans__icon" src={noansIcon} />
             <p className="noans__text">Нет результатов</p>
         </section>
     );

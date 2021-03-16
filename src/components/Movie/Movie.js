@@ -6,7 +6,7 @@ function Movie({ isInSavedMovies, movie }) {
 
     function convertTime() {
         const { duration } = movie;
-        const hours = Math.floor(duration / 60);
+        const hours = Math.floor(duration / 60) || 0;
         const minutes = Math.floor(duration % 60);
 
         return `${hours}ч${minutes}м`;

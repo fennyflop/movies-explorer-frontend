@@ -1,9 +1,10 @@
 import './MoviesCardList.css';
 import Movie from '../Movie/Movie';
 import QueryNotFound from '../QueryNotFound/QueryNotFound';
+import QueryError from '../QueryError/QueryError';
 import Preloader from '../Preloader/Preloader';
 
-function MoviesCardList({ movieList, isSearching, hasAnswers }) {
+function MoviesCardList({ movieList, isSearching, hasAnswers, hasErrors }) {
 
 
 
@@ -14,6 +15,7 @@ function MoviesCardList({ movieList, isSearching, hasAnswers }) {
                     return <Movie movie={movie} isInSavedMovies={false} key={i} />
                 }) : ''}
             </div>
+            {hasErrors ? <QueryError /> : ''}
             {!hasAnswers ? <QueryNotFound /> : ''}
             {isSearching ? <Preloader /> : ''}
         </section>
