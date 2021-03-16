@@ -22,7 +22,11 @@ function App() {
 
   const [movieList, setMovieList] = useState([]);
   const [searchedMovieList, setSearchedMovieList] = useState([]);
+
+  // SearchForm
+
   const [isSearching, setIsSearching] = useState(false);
+  const [hasAnswers, setHasAnswers] = useState(true); // Не иницирует плейродер сразу
 
   useEffect(() => {
     const movies = localStorage.getItem('movies');
@@ -45,13 +49,24 @@ function App() {
   };
 
   function handleSearchForm(query, shortFilmsDecision) {
+    // Start searching
     setIsSearching(true);
+    // Query params
     const regExp = new RegExp(`${query}`);
     const validDuration = shortFilmsDecision ? 0 : 40
-
-    setSearchedMovieList(movieList.filter((e) => {
+    // Filtered movies
+    const filteredMovies = movieList.filter((e) => {
       return regExp.test(e.nameRU) && e.duration > validDuration;
-    }));
+    });
+    // Testing
+    console.log(filteredMovies);
+    if (filteredMovies.length) {
+      setSearchedMovieList(filteredMovies);
+      setHasAnswers(true);
+    } else {
+      setHasAnswers(false)
+    }
+    // Finish search
     setIsSearching(false);
   }
 
@@ -81,8 +96,8 @@ function App() {
         </Route>
         <Route path="/movies">
           <Header />
-          <SearchForm handleSearchForm={handleSearchForm} />
-          <MoviesCardList isSearching={isSearching} movieList={searchedMovieList} />
+          <SearchForm handleSearchForm={handleSearchForm} hasAnswers={hasAnswers} />
+          <MoviesCardList isSearching={isSearching} movieList={searchedMovieList} hasAnswers={hasAnswers} />
           <Footer />
           <Navigation />
         </Route>
