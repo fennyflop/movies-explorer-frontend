@@ -25,12 +25,18 @@ function App() {
   const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
-    handleMovies();
+    const movies = localStorage.getItem('movies');
+    if (!movies) {
+      return handleMovies();
+    }
+
+    return setMovieList(JSON.parse(movies));
   }, []);
 
   function handleMovies() {
     return moviesApi.getMovies()
       .then((movies) => {
+        localStorage.setItem('movies', JSON.stringify(movies));
         setMovieList(movies);
       })
       .catch((err) => {
