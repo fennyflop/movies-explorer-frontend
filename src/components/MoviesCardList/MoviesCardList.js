@@ -19,7 +19,6 @@ function MoviesCardList() {
                 <Movie />
                 <Movie />
             </div>
-            <Preloader />
             <button className="movies__button">Ещё</button>
         </section>
     );
