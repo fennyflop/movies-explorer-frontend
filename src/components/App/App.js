@@ -70,12 +70,8 @@ function App() {
   function handleSearchForm(query, shortFilmsDecision) {
     filterMovies(query, shortFilmsDecision)
       .then((filteredMovies) => {
-        if (filteredMovies.length) {
-          setSearchedMovieList(filteredMovies);
-          setHasAnswers(true);
-        } else {
-          setHasAnswers(false);
-        }
+        setSearchedMovieList(filteredMovies);
+        setHasAnswers(true);
       })
       .catch((err) => {
         console.log(err);
