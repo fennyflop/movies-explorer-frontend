@@ -18,7 +18,31 @@ import moviesApi from '../../utils/MoviesApi';
 import { Switch, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
+function getWindowDimensions() {
+  const { innerWidth: width } = window;
+  return {
+    width,
+  };
+}
+
+function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+}
+
 function App() {
+
+  const { width } = useWindowDimensions();
 
   const [movieList, setMovieList] = useState([]);
   const [searchedMovieList, setSearchedMovieList] = useState([]);
@@ -29,14 +53,42 @@ function App() {
   const [hasAnswers, setHasAnswers] = useState(true); // Не иницирует плейродер сразу
   const [hasErrors, setHasErrors] = useState(false);
 
+  // Row Manipulation
+
+  const [defaultCount, setDefaultCount] = useState(12);
+  const [rowCount, setRowCount] = useState(0);
+
   useEffect(() => {
+    // Movies
     const movies = localStorage.getItem('movies');
     if (!movies) {
       return handleMovies();
     }
 
     return setMovieList(JSON.parse(movies));
-  }, []);
+  }, [width]);
+
+  useEffect(() => {
+    console.log('asdasdasdasdasdasdasdasdasdasd ' + rowCount);
+  }, [rowCount])
+
+  useEffect(() => {
+    switch (true) {
+      case (width > 1260):
+        setRowCount(4);
+        break;
+      case (width > 768):
+        setRowCount(3);
+        break;
+      case (width > 480):
+        setDefaultCount(8);
+        setRowCount(2);
+        break;
+      default:
+        setDefaultCount(5);
+        setRowCount(1);
+    }
+  }, [width]);
 
   function handleMovies() {
     return moviesApi.getMovies()
@@ -109,7 +161,7 @@ function App() {
         <Route path="/movies">
           <Header />
           <SearchForm handleSearchForm={handleSearchForm} hasAnswers={hasAnswers} />
-          <MoviesCardList isSearching={isSearching} movieList={searchedMovieList} hasAnswers={hasAnswers} hasErrors={hasErrors} />
+          <MoviesCardList defaultCount={defaultCount} rowCount={rowCount} isSearching={isSearching} movieList={searchedMovieList} hasAnswers={hasAnswers} hasErrors={hasErrors} />
           <Footer />
           <Navigation />
         </Route>

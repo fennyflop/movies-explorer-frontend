@@ -5,29 +5,33 @@ import QueryError from '../QueryError/QueryError';
 import Preloader from '../Preloader/Preloader';
 import { useEffect, useState } from 'react';
 
-function MoviesCardList({ movieList, isSearching, hasAnswers, hasErrors }) {
+function MoviesCardList({ movieList, isSearching, hasAnswers, hasErrors, rowCount, defaultCount }) {
 
-    const [num, setNum] = useState(4);
+    const [elements, setElements] = useState(0);
     const [displayedMovies, setDisplayedMovies] = useState([]);
+
+
+    // Схожие viewportы
+    useEffect(() => {
+        setElements(defaultCount);
+    }, [rowCount, defaultCount]);
 
     useEffect(() => {
         let accumulator = [];
-
         // Нужен цикл for для break;
-        for (let i = 0; i < num; i++) {
-            if (i < num) {
+        for (let i = 0; i < elements; i++) {
+            if (i < elements) {
                 accumulator.push(movieList[i]);
             } else {
                 break;
             }
         };
-
         setDisplayedMovies(accumulator);
-    }, [movieList, num]);
+    }, [movieList, elements]);
 
     function handleMoreMovies() {
-        if (num < movieList.length) {
-            return setNum(num + 4);
+        if (rowCount < movieList.length) {
+            return setElements(elements + rowCount);
         }
     }
 
@@ -38,7 +42,7 @@ function MoviesCardList({ movieList, isSearching, hasAnswers, hasErrors }) {
                     return <Movie movie={movie} isInSavedMovies={false} key={i} />
                 }) : ''}
             </div>
-            {hasAnswers && num < movieList.length ? <button className="movies__button" onClick={handleMoreMovies}>Ещё</button> : ''}
+            {hasAnswers && elements < movieList.length ? <button className="movies__button" onClick={handleMoreMovies}>Ещё</button> : ''}
             {hasErrors ? <QueryError /> : ''}
             {!hasAnswers && !hasErrors ? <QueryNotFound /> : ''}
             {isSearching ? <Preloader /> : ''}
