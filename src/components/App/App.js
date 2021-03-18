@@ -15,6 +15,7 @@ import SavedMoviesCardList from '../SavedMoviesCardList/SavedMoviesCardList';
 import Navigation from '../Navigation/Navigation';
 import Profile from '../Profile/Profile';
 import moviesApi from '../../utils/MoviesApi';
+import mainApi from '../../utils/MainApi';
 import { Switch, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
@@ -66,24 +67,26 @@ function App() {
     }
 
     return setMovieList(JSON.parse(movies));
-  }, [width]);
+  }, []);
 
   useEffect(() => {
-    switch (true) {
-      case (width > 1260):
-        setRowCount(4);
-        break;
-      case (width > 768):
-        setRowCount(3);
-        break;
-      case (width > 480):
-        setDefaultCount(8);
-        setRowCount(2);
-        break;
-      default:
-        setDefaultCount(5);
-        setRowCount(1);
-    }
+    setTimeout(() => {
+      switch (true) {
+        case (width > 1260):
+          setRowCount(4);
+          break;
+        case (width > 768):
+          setRowCount(3);
+          break;
+        case (width > 480):
+          setDefaultCount(8);
+          setRowCount(2);
+          break;
+        default:
+          setDefaultCount(5);
+          setRowCount(1);
+      }
+    }, 1000)
   }, [width]);
 
   function handleMovies() {
@@ -96,6 +99,17 @@ function App() {
         console.log(err);
       })
   };
+
+  async function handleSave(movie, isSaved) {
+    console.log(movie);
+    mainApi.handleSaveMovie(movie, isSaved)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 
   async function filterMovies(query, shortFilmsDecision) {
     // Убираем все пред. сообщения
@@ -157,7 +171,7 @@ function App() {
         <Route path="/movies">
           <Header />
           <SearchForm handleSearchForm={handleSearchForm} hasAnswers={hasAnswers} />
-          <MoviesCardList defaultCount={defaultCount} rowCount={rowCount} isSearching={isSearching} movieList={searchedMovieList} hasAnswers={hasAnswers} hasErrors={hasErrors} />
+          <MoviesCardList defaultCount={defaultCount} rowCount={rowCount} isSearching={isSearching} movieList={searchedMovieList} hasAnswers={hasAnswers} hasErrors={hasErrors} handleSave={handleSave} />
           <Footer />
           <Navigation />
         </Route>
