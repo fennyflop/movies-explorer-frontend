@@ -69,10 +69,6 @@ function App() {
   }, [width]);
 
   useEffect(() => {
-    console.log('asdasdasdasdasdasdasdasdasdasd ' + rowCount);
-  }, [rowCount])
-
-  useEffect(() => {
     switch (true) {
       case (width > 1260):
         setRowCount(4);
@@ -114,7 +110,7 @@ function App() {
     const filteredMovies = movieList.filter((e) => {
       return regExp.test(e.nameRU) && e.duration > validDuration;
     });
-
+    console.log(filteredMovies);
     return filteredMovies;
   }
 

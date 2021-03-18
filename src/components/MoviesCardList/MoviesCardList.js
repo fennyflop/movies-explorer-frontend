@@ -42,9 +42,9 @@ function MoviesCardList({ movieList, isSearching, hasAnswers, hasErrors, rowCoun
                     return <Movie movie={movie} isInSavedMovies={false} key={i} />
                 }) : ''}
             </div>
-            {hasAnswers && elements < movieList.length ? <button className="movies__button" onClick={handleMoreMovies}>Ещё</button> : ''}
+            {movieList.length && elements < movieList.length ? <button className="movies__button" onClick={handleMoreMovies}>Ещё</button> : ''}
             {hasErrors ? <QueryError /> : ''}
-            {!hasAnswers && !hasErrors ? <QueryNotFound /> : ''}
+            {!movieList.length && !hasErrors ? <QueryNotFound /> : ''}
             {isSearching ? <Preloader /> : ''}
         </section>
     );
