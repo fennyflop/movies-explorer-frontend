@@ -5,7 +5,7 @@ import QueryError from '../QueryError/QueryError';
 import Preloader from '../Preloader/Preloader';
 import { useEffect, useState } from 'react';
 
-function MoviesCardList({ movieList, isSearching, hasAnswers, hasErrors, rowCount, defaultCount, handleBookmark, handleUnsave }) {
+function MoviesCardList({ movieList, isSearching, hasAnswers, hasErrors, rowCount, defaultCount, handleSave, handleDelete }) {
 
     const [elements, setElements] = useState(0);
     const [displayedMovies, setDisplayedMovies] = useState([]);
@@ -39,7 +39,7 @@ function MoviesCardList({ movieList, isSearching, hasAnswers, hasErrors, rowCoun
         <section className="movies">
             <div className="movies__list">
                 {hasAnswers ? displayedMovies.map((movie, i) => {
-                    return <Movie movie={movie} isInSavedMovies={false} handleBookmark={handleBookmark} handleUnsave={handleUnsave} key={i} />
+                    return <Movie movie={movie} isInSavedMovies={false} handleSave={handleSave} handleDelete={handleDelete} key={i} />
                 }) : ''}
             </div>
             {movieList.length && elements < movieList.length ? <button className="movies__button" onClick={handleMoreMovies}>Ещё</button> : ''}

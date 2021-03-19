@@ -33,7 +33,7 @@ function Registration({ handleRegistration }) {
     }
 
     return (
-        <UserForm question="Уже зарегистрированы?" name="registration" linkName="Войти" submitName="Зарегистрироваться" title="Добро пожаловать!" toPath="/signin">
+        <UserForm handleSubmit={handleSubmit} question="Уже зарегистрированы?" name="registration" linkName="Войти" submitName="Зарегистрироваться" title="Добро пожаловать!" toPath="/signin">
             <fieldset className="registration__fieldset">
                 <label className="registration__label" htmlFor="username">Имя</label>
                 <input className={`registration__input ${errors.name ? 'registration__input-error' : ''}`} required autoComplete="off" name="name" placeholder="Введите своё имя" value={values.name} onChange={handleChange} />

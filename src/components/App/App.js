@@ -72,26 +72,41 @@ function App() {
 
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
-    if (jwt && jwt.length !== 0) {
-      return checkToken(jwt);
-    }
+    if (jwt && jwt.length !== 0) return checkToken(jwt);
   }, [])
 
   // Контроль получения фильмов
 
   useEffect(() => {
-    //localStorage.removeItem('saved-movies');
-
     if (!isLogged) {
       return;
     }
 
-
-    localStorage.removeItem('saved-movies');
+    handleMovies();
     updateSavedMovies();
-
-    return handleMovies();
   }, [isLogged])
+
+  function handleMovies() {
+    return moviesApi.getMovies()
+      .then((movies) => {
+        setMovieList(movies);
+        localStorage.setItem('movies', JSON.stringify(movies));
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  };
+
+  function updateSavedMovies() {
+    return mainApi.getSavedMovies(localStorage.getItem('jwt'))
+      .then((updatedSavedMovies) => {
+        setSavedMovies(updatedSavedMovies);
+        localStorage.setItem('saved-movies', JSON.stringify(updatedSavedMovies));
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   // Контроль карточек в ряду
 
@@ -115,32 +130,7 @@ function App() {
     }, 1000)
   }, [width]);
 
-  function handleMovies() {
-    return moviesApi.getMovies()
-      .then((movies) => {
-        setMovieList(movies);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  };
-
-  // Save and deletion
-
-  function updateSavedMovies() {
-    return mainApi.getSavedMovies(localStorage.getItem('jwt'))
-      .then((updatedSavedMovies) => {
-        setSavedMovies(updatedSavedMovies);
-        localStorage.setItem('saved-movies', JSON.stringify(updatedSavedMovies));
-        console.log('Movies updated!');
-        console.log(updatedSavedMovies);
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
-
-  function handleBookmark(movie) {
+  async function saveMovie(movie) {
     return mainApi.handleSaveMovie(movie, localStorage.getItem('jwt'))
       .then(() => {
         updateSavedMovies();
@@ -150,7 +140,7 @@ function App() {
       })
   }
 
-  function handleUnsave(id) {
+  async function deleteMovie(id) {
     return mainApi.handleDeleteMovie(id, localStorage.getItem('jwt'))
       .then(() => {
         updateSavedMovies();
@@ -260,7 +250,7 @@ function App() {
           <Route path="/movies">
             <Header />
             <SearchForm handleSearchForm={handleSearchForm} hasAnswers={hasAnswers} />
-            <MoviesCardList defaultCount={defaultCount} rowCount={rowCount} isSearching={isSearching} movieList={searchedMovieList} hasAnswers={hasAnswers} hasErrors={hasErrors} handleBookmark={handleBookmark} handleUnsave={handleUnsave} />
+            <MoviesCardList defaultCount={defaultCount} rowCount={rowCount} isSearching={isSearching} movieList={searchedMovieList} hasAnswers={hasAnswers} hasErrors={hasErrors} handleSave={saveMovie} handleDelete={deleteMovie} />
             <Footer />
             <Navigation />
           </Route>

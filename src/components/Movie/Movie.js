@@ -1,9 +1,18 @@
 import { useEffect, useState } from 'react';
 import './Movie.css';
 
-function Movie({ handleBookmark, handleUnsave, movie }) {
+function Movie({ movie, handleSave, handleDelete }) {
 
+    const [cardId, setCardId] = useState(false);
     const [isSaved, setIsSaved] = useState(false);
+
+    useEffect(() => {
+        if (movie) {
+            // Отображение самого первого
+            const savedList = JSON.parse(localStorage.getItem('saved-movies'));
+            setIsSaved(savedList.find((item) => item.nameRU === movie.nameRU) ? savedList.find((item) => item.nameRU === movie.nameRU)._id : false);
+        }
+    }, [])
 
     if (!movie) {
         return null;
@@ -23,16 +32,11 @@ function Movie({ handleBookmark, handleUnsave, movie }) {
         const savedList = JSON.parse(localStorage.getItem('saved-movies'));
         const cardLikedId = savedList.find((item) => item.nameRU === movie.nameRU) ? savedList.find((item) => item.nameRU === movie.nameRU)._id : false;
 
-        console.log(cardLikedId);
         if (!cardLikedId) {
-            handleBookmark(movie);
-            setIsSaved(true);
+            handleSave(movie).then(() => { setIsSaved(true) }).catch((err) => { console.log(err) });
         } else {
-            handleUnsave(cardLikedId);
-            setIsSaved(false);
+            handleDelete(cardLikedId).then(() => { setIsSaved(false) }).catch((err) => { console.log(err) });
         }
-
-        // if (cardLiked._id)
     }
 
     return (
