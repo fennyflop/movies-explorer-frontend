@@ -23,7 +23,7 @@ class MainApi {
                 return this._handleOriginalResponse(res);
             })
     }
-    handleRegister(email, password, name) {
+    handleRegister(name, email, password) {
         return fetch(`${this._baseUrl}/signup`, {
             method: 'POST',
             headers: {
@@ -45,6 +45,17 @@ class MainApi {
         }).then((res) => {
             return this._handleOriginalResponse(res);
         })
+    }
+    checkUserToken(jwt) {
+        return fetch(`${this._baseUrl}/users/me`, {
+            headers: {
+                "Authorization": `Bearer ${jwt}`,
+                "Content-Type": "application/json"
+            }
+        })
+            .then((res) => {
+                return this._handleOriginalResponse(res);
+            })
     }
 }
 

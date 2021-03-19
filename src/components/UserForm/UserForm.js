@@ -6,7 +6,7 @@ function UserForm(props) {
     return (
         <>
             <section className={props.name}>
-                <form className="userform">
+                <form className="userform" onSubmit={props.handleSubmit}>
                     <Link className="userform__home-link" to="/">
                         <img className="userform__logo" alt="logo" src={logo} />
                     </Link>

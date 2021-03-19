@@ -1,6 +1,6 @@
 import './Profile.css';
 
-function Profile() {
+function Profile({ handleLogout }) {
     return (
         <section className="profile">
             <form className="profile__form">
@@ -22,7 +22,7 @@ function Profile() {
             </form>
             <div className="profile__buttons">
                 <button className="profile__button profile__submit" type="submit" form="profile">Редактировать</button>
-                <button className="profile__button profile__exit" type="button">Выйти из аккаунта</button>
+                <button className="profile__button profile__exit" type="button" onClick={handleLogout}>Выйти из аккаунта</button>
             </div>
         </section>
     );

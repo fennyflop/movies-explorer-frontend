@@ -1,20 +1,47 @@
 import './Login.css';
 import UserForm from '../UserForm/UserForm';
+import { useEffect, useState } from 'react';
 
-function login() {
+function Login({ handleLogin }) {
+    // Values
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    // Validity
+    const [emailValid, setEmailValid] = useState(false);
+    const [passwordValid, setPasswordValid] = useState(false);
+
+    function handleEmail(evt) {
+        setEmail(evt.target.value);
+        setEmailValid(evt.target.validity.valid);
+    }
+
+    function handlePassword(evt) {
+        setPassword(evt.target.value);
+        setPasswordValid(evt.target.validity.valid && evt.target.value);
+    }
+
+    // Регистрация
+
+    function handleSubmit(evt) {
+        evt.preventDefault();
+        handleLogin(email, password);
+    }
+
     return (
-        <UserForm question="Ещё не зарегистрированы?" name="login" linkName="Регистрация" submitName="Войти" title="Рады видеть!" toPath="/signup">
+        <UserForm handleSubmit={handleSubmit} question="Ещё не зарегистрированы?" name="login" linkName="Регистрация" submitName="Войти" title="Рады видеть!" toPath="/signup">
             <fieldset className="login__fieldset">
                 <label className="login__label" htmlFor="email">E-mail</label>
-                <input className="login__input" autoComplete="off" type="email" name="email" placeholder="Введите свою почту" />
+                <input className={`login__input ${!emailValid ? 'login__input-error' : ''}`} autoComplete="off" type="email" name="email" placeholder="Введите свою почту" onChange={handleEmail} />
+                <span className={`login__error ${emailValid ? 'login__error-hidden' : ''}`}>Что-то пошло не так...</span>
             </fieldset>
             <fieldset className="login__fieldset">
                 <label className="login__label" htmlFor="password">Пароль</label>
-                <input className="login__input login__input-error" autoComplete="off" type="password" name="password" placeholder="Введите свой пароль" />
-                <span className="login__error">Что-то пошло не так...</span>
+                <input className={`login__input ${!passwordValid ? 'login__input-error' : ''}`} autoComplete="off" type="password" name="password" placeholder="Введите свой пароль" onChange={handlePassword} minLength='6' />
+                <span className={`login__error ${passwordValid ? 'login__error-hidden' : ''}`}>Что-то пошло не так...</span>
             </fieldset>
         </UserForm>
     );
 }
 
-export default login;
+export default Login;

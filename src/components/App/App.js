@@ -16,7 +16,8 @@ import Navigation from '../Navigation/Navigation';
 import Profile from '../Profile/Profile';
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
-import { Switch, Route } from 'react-router-dom';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 function getWindowDimensions() {
@@ -43,6 +44,8 @@ function useWindowDimensions() {
 
 function App() {
 
+  const history = useHistory();
+
   const { width } = useWindowDimensions();
 
   const [movieList, setMovieList] = useState([]);
@@ -59,15 +62,30 @@ function App() {
   const [defaultCount, setDefaultCount] = useState(12);
   const [rowCount, setRowCount] = useState(0);
 
+  // User
+
+  const [isLogged, setIsLogged] = useState(false);
+  const [currentUser, setCurrentUser] = useState();
+
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      return checkToken(jwt);
+    }
+  }, [])
+
   useEffect(() => {
     // Movies
+    if (!isLogged) {
+      return;
+    }
     const movies = localStorage.getItem('movies');
     if (!movies) {
       return handleMovies();
     }
 
     return setMovieList(JSON.parse(movies));
-  }, []);
+  }, [isLogged]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -128,7 +146,6 @@ function App() {
     return filteredMovies;
   }
 
-
   function handleSearchForm(query, shortFilmsDecision) {
     filterMovies(query, shortFilmsDecision)
       .then((filteredMovies) => {
@@ -144,45 +161,86 @@ function App() {
       })
   }
 
+  function handleLogin(email, password) {
+    return mainApi.handleLogin(email, password)
+      .then(({ token }) => {
+        checkToken(token);
+        localStorage.setItem('jwt', token);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('jwt');
+    setIsLogged(false);
+    history.push('/signin')
+  }
+
+  function checkToken(jwt) {
+    return mainApi.checkUserToken(jwt)
+      .then((data) => {
+        setCurrentUser(data);
+        setIsLogged(true);
+        history.push('/movies');
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  function handleRegistration(name, email, password) {
+    return mainApi.handleRegister(name, email, password)
+      .then(() => {
+        history.push('/signin')
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
   // Временное решение с isNotLogged
   return (
     <div className="App">
-      <Switch>
-        <Route exact path="/">
-          {/* Временное решение с header */}
-          <Header isNotLogged={true} />
-          <Promo />
-          <AboutProject />
-          <Techs />
-          <AboutMe />
-          <Portfolio />
-          <Footer />
-        </Route>
-        <Route path="/signin">
-          <Login />
-        </Route>
-        <Route path="/signup">
-          <Registration />
-        </Route>
-        <Route path="/profile">
-          <Header />
-          <Profile />
-        </Route>
-        <Route path="/movies">
-          <Header />
-          <SearchForm handleSearchForm={handleSearchForm} hasAnswers={hasAnswers} />
-          <MoviesCardList defaultCount={defaultCount} rowCount={rowCount} isSearching={isSearching} movieList={searchedMovieList} hasAnswers={hasAnswers} hasErrors={hasErrors} handleSave={handleSave} />
-          <Footer />
-          <Navigation />
-        </Route>
-        <Route path="/saved-movies">
-          <Header />
-          <SearchForm />
-          <SavedMoviesCardList />
-          <Footer />
-          <Navigation />
-        </Route>
-      </Switch>
+      <CurrentUserContext.Provider value={currentUser}>
+        <Switch>
+          <Route exact path="/">
+            {/* Временное решение с header */}
+            <Header isNotLogged={true} />
+            <Promo />
+            <AboutProject />
+            <Techs />
+            <AboutMe />
+            <Portfolio />
+            <Footer />
+          </Route>
+          <Route path="/signin">
+            <Login handleLogin={handleLogin} />
+          </Route>
+          <Route path="/signup">
+            <Registration handleRegistration={handleRegistration} />
+          </Route>
+          <Route path="/profile">
+            <Header />
+            <Profile handleLogout={handleLogout} />
+          </Route>
+          <Route path="/movies">
+            <Header />
+            <SearchForm handleSearchForm={handleSearchForm} hasAnswers={hasAnswers} />
+            <MoviesCardList defaultCount={defaultCount} rowCount={rowCount} isSearching={isSearching} movieList={searchedMovieList} hasAnswers={hasAnswers} hasErrors={hasErrors} handleSave={handleSave} />
+            <Footer />
+            <Navigation />
+          </Route>
+          <Route path="/saved-movies">
+            <Header />
+            <SearchForm />
+            <SavedMoviesCardList />
+            <Footer />
+            <Navigation />
+          </Route>
+        </Switch>
+      </CurrentUserContext.Provider>
     </div>
   );
 }

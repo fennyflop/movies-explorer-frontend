@@ -2,7 +2,7 @@ import './Registration.css';
 import UserForm from '../UserForm/UserForm';
 import { useEffect, useState } from 'react';
 
-function Registration() {
+function Registration({ handleRegistration }) {
 
     // Regexps
     const nameRegexp = /^[а-яА-Я\s]*$/i;
@@ -28,16 +28,24 @@ function Registration() {
 
     function handlePassword(evt) {
         setPassword(evt.target.value);
-        setPasswordValid(evt.target.validity.valid);
+        setPasswordValid(evt.target.validity.valid && evt.target.value);
     }
 
     useEffect(() => {
         setNameValid(name && nameRegexp.test(name));
     }, [name]);
 
+    // Регистрация
+
+    function handleSubmit(evt) {
+        evt.preventDefault();
+        console.log(name, email, password);
+        handleRegistration(name, email, password);
+    }
+
 
     return (
-        <UserForm isDisabled={!(nameValid && emailValid && passwordValid)} question="Уже зарегистрированы?" name="registration" linkName="Войти" submitName="Зарегистрироваться" title="Добро пожаловать!" toPath="/signin">
+        <UserForm handleSubmit={handleSubmit} isDisabled={!(nameValid && emailValid && passwordValid)} question="Уже зарегистрированы?" name="registration" linkName="Войти" submitName="Зарегистрироваться" title="Добро пожаловать!" toPath="/signin">
             <fieldset className="registration__fieldset">
                 <label className="registration__label" htmlFor="username">Имя</label>
                 <input className={`registration__input ${!nameValid ? 'registration__input-error' : ''}`} autoComplete="off" name="username" placeholder="Введите своё имя" onChange={handleName} />
