@@ -35,20 +35,51 @@ class MainApi {
                 return this._handleOriginalResponse(res);
             })
     }
-    handleSaveMovie(movie, isSaved, jwt) {
-        console.log(movie);
-        if (!isSaved) {
-            return fetch(`${this._baseUrl}/movies`, {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${jwt}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(movie)
-            }).then((res) => {
+    handleSaveMovie(movie, jwt) {
+        return fetch(`${this._baseUrl}/movies`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${jwt}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                "nameRU": movie.nameRU,
+                "nameEN": movie.nameEN,
+                "description": movie.description,
+                "country": movie.country,
+                "duration": movie.duration,
+                "year": movie.year,
+                "image": `${movie.image.url ? `https://api.nomoreparties.co${movie.image.url}` : movie.thumbnail}`,
+                "trailer": movie.trailer || movie.trailerLink,
+                "thumbnail": `${movie.image.url ? `https://api.nomoreparties.co${movie.image.url}` : movie.thumbnail}`,
+                "movieId": movie.movieId || movie.id,
+                "director": movie.director
+            })
+        }).then((res) => {
+            return this._handleOriginalResponse(res);
+        })
+    }
+    handleDeleteMovie(movieId, jwt) {
+        return fetch(`${this._baseUrl}/movies/${movieId}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${jwt}`,
+                "Content-Type": "application/json",
+            },
+        }).then((res) => {
+            return this._handleOriginalResponse(res);
+        })
+    }
+    getSavedMovies(jwt) {
+        return fetch(`${this._baseUrl}/movies`, {
+            headers: {
+                "Authorization": `Bearer ${jwt}`,
+                "Content-Type": "application/json",
+            }
+        })
+            .then((res) => {
                 return this._handleOriginalResponse(res);
             })
-        }
     }
     checkUserToken(jwt) {
         return fetch(`${this._baseUrl}/users/me`, {

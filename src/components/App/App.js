@@ -49,6 +49,7 @@ function App() {
   const { width } = useWindowDimensions();
 
   const [movieList, setMovieList] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
   const [searchedMovieList, setSearchedMovieList] = useState([]);
 
   // SearchForm
@@ -61,32 +62,43 @@ function App() {
 
   const [defaultCount, setDefaultCount] = useState(12);
   const [rowCount, setRowCount] = useState(0);
-  const [savedMovies, setSavedMovies] = useState([]);
 
   // User
 
   const [isLogged, setIsLogged] = useState(false);
   const [currentUser, setCurrentUser] = useState();
 
+  // Контроль повторного входа
+
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
-    if (jwt) {
+    if (jwt && jwt.length !== 0) {
       return checkToken(jwt);
     }
   }, [])
 
+  // Контроль получения фильмов
+
   useEffect(() => {
-    // Movies
+    //localStorage.removeItem('saved-movies');
+
     if (!isLogged) {
       return;
     }
-    const movies = localStorage.getItem('movies');
-    if (!movies) {
-      return handleMovies();
-    }
 
-    return setMovieList(JSON.parse(movies));
-  }, [isLogged]);
+    mainApi.getSavedMovies(localStorage.getItem('jwt'))
+      .then((updatedSavedMovies) => {
+        setSavedMovies(updatedSavedMovies);
+        localStorage.setItem('saved-movies', JSON.stringify(updatedSavedMovies));
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+    return handleMovies();
+  }, [isLogged])
+
+  // Контроль карточек в ряду
 
   useEffect(() => {
     setTimeout(() => {
@@ -111,7 +123,6 @@ function App() {
   function handleMovies() {
     return moviesApi.getMovies()
       .then((movies) => {
-        localStorage.setItem('movies', JSON.stringify(movies));
         setMovieList(movies);
       })
       .catch((err) => {
@@ -119,23 +130,36 @@ function App() {
       })
   };
 
-  async function handleSave(movie, isSaved) {
-    console.log(movie);
-    mainApi.handleSaveMovie({
-      "nameRU": movie.nameRU,
-      "nameEN": movie.nameEN,
-      "description": movie.description,
-      "country": movie.country,
-      "duration": movie.duration,
-      "year": movie.year,
-      "image": `https://api.nomoreparties.co${movie.image.url}`,
-      "trailer": movie.trailerLink,
-      "thumbnail": `https://api.nomoreparties.co${movie.image.url}`,
-      "movieId": movie.id,
-      "director": movie.director
-    }, false, localStorage.getItem('jwt'))
-      .then((savedMovie) => {
-        setSavedMovies([...savedMovies, savedMovie])
+  // Save and deletion
+
+  function handleBookmark(movie) {
+    return mainApi.handleSaveMovie(movie, localStorage.getItem('jwt'))
+      .then(() => {
+        mainApi.getSavedMovies((localStorage.getItem('jwt')))
+          .then((updatedSavedMovies) => {
+            setSavedMovies(updatedSavedMovies);
+            localStorage.setItem('saved-movies', JSON.stringify(updatedSavedMovies));
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  function handleUnsave(id) {
+    return mainApi.handleDeleteMovie(id, localStorage.getItem('jwt'))
+      .then(() => {
+        mainApi.getSavedMovies((localStorage.getItem('jwt')))
+          .then((updatedSavedMovies) => {
+            setSavedMovies(updatedSavedMovies);
+            localStorage.setItem('saved-movies', JSON.stringify(updatedSavedMovies));
+          })
+          .catch((err) => {
+            console.log(err);
+          })
       })
       .catch((err) => {
         console.log(err);
@@ -155,7 +179,7 @@ function App() {
     const filteredMovies = movieList.filter((e) => {
       return regExp.test(e.nameRU) && e.duration > validDuration;
     });
-    console.log(filteredMovies);
+
     return filteredMovies;
   }
 
@@ -242,14 +266,14 @@ function App() {
           <Route path="/movies">
             <Header />
             <SearchForm handleSearchForm={handleSearchForm} hasAnswers={hasAnswers} />
-            <MoviesCardList defaultCount={defaultCount} rowCount={rowCount} isSearching={isSearching} movieList={searchedMovieList} hasAnswers={hasAnswers} hasErrors={hasErrors} handleSave={handleSave} />
+            <MoviesCardList defaultCount={defaultCount} rowCount={rowCount} isSearching={isSearching} movieList={searchedMovieList} hasAnswers={hasAnswers} hasErrors={hasErrors} handleBookmark={handleBookmark} handleUnsave={handleUnsave} />
             <Footer />
             <Navigation />
           </Route>
           <Route path="/saved-movies">
             <Header />
             <SearchForm />
-            <SavedMoviesCardList />
+            <SavedMoviesCardList movieList={SavedMoviesCardList} />
             <Footer />
             <Navigation />
           </Route>
@@ -260,3 +284,16 @@ function App() {
 }
 
 export default App;
+
+  // useEffect(() => {
+  //   // Movies
+  //   if (!isLogged) {
+  //     return;
+  //   }
+  //   const movies = localStorage.getItem('movies');
+  //   if (!movies || !JSON.parse(movies).length) {
+  //     return handleMovies();
+  //   }
+
+  //   return setMovieList(JSON.parse(movies));
+  // }, [isLogged]);
