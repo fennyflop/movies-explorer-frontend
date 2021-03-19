@@ -179,6 +179,7 @@ function App() {
       .then(({ token }) => {
         checkToken(token);
         localStorage.setItem('jwt', token);
+        history.push('/movies');
       })
       .catch((err) => {
         console.log(err);

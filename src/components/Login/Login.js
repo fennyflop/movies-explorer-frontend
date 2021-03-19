@@ -1,7 +1,6 @@
 import './Login.css';
 import UserForm from '../UserForm/UserForm';
 import useForm from '../FormHooks/FormHooks';
-import { useEffect, useState } from 'react';
 
 function Login({ handleLogin }) {
 
@@ -19,7 +18,6 @@ function Login({ handleLogin }) {
         } else if (values.password.length < 8) {
             errors.password = 'Минимальная длинна пароля - 6 символов';
         }
-        console.log(errors);
         return errors;
     };
 
