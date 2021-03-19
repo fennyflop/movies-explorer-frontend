@@ -257,7 +257,7 @@ function App() {
           <Route path="/saved-movies">
             <Header />
             <SearchForm />
-            <SavedMoviesCardList movieList={SavedMoviesCardList} />
+            <SavedMoviesCardList movieList={savedMovies} handleDelete={deleteMovie} />
             <Footer />
             <Navigation />
           </Route>
