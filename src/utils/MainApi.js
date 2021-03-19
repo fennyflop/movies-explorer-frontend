@@ -35,16 +35,20 @@ class MainApi {
                 return this._handleOriginalResponse(res);
             })
     }
-    handleSaveMovie(movie, isSaved) {
-        return fetch(`${this._baseUrl}/movies`, {
-            method: "DELETE",
-            headers: {
-                "Authorization": this._token,
-                "Content-Type": "application/json",
-            },
-        }).then((res) => {
-            return this._handleOriginalResponse(res);
-        })
+    handleSaveMovie(movie, isSaved, jwt) {
+        console.log(movie);
+        if (!isSaved) {
+            return fetch(`${this._baseUrl}/movies`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${jwt}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(movie)
+            }).then((res) => {
+                return this._handleOriginalResponse(res);
+            })
+        }
     }
     checkUserToken(jwt) {
         return fetch(`${this._baseUrl}/users/me`, {
@@ -61,7 +65,6 @@ class MainApi {
 
 const mainApi = new MainApi({
     baseUrl: 'https://api.films.students.nomoredomains.monster',
-    jwt: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDUzNzY4ZDUyMTVhZDQ0Mzc0ODE2OWEiLCJpYXQiOjE2MTYwODM0MjQsImV4cCI6MTYxNjY4ODIyNH0.v-_lhl069HUrRn63OZsu43k9ckvM51ZGLsJrpeKeIfM', //temporary
 });
 
 export default mainApi;

@@ -61,6 +61,7 @@ function App() {
 
   const [defaultCount, setDefaultCount] = useState(12);
   const [rowCount, setRowCount] = useState(0);
+  const [savedMovies, setSavedMovies] = useState([]);
 
   // User
 
@@ -120,9 +121,21 @@ function App() {
 
   async function handleSave(movie, isSaved) {
     console.log(movie);
-    mainApi.handleSaveMovie(movie, isSaved)
-      .then((res) => {
-        console.log(res);
+    mainApi.handleSaveMovie({
+      "nameRU": movie.nameRU,
+      "nameEN": movie.nameEN,
+      "description": movie.description,
+      "country": movie.country,
+      "duration": movie.duration,
+      "year": movie.year,
+      "image": `https://api.nomoreparties.co${movie.image.url}`,
+      "trailer": movie.trailerLink,
+      "thumbnail": `https://api.nomoreparties.co${movie.image.url}`,
+      "movieId": movie.id,
+      "director": movie.director
+    }, false, localStorage.getItem('jwt'))
+      .then((savedMovie) => {
+        setSavedMovies([...savedMovies, savedMovie])
       })
       .catch((err) => {
         console.log(err);

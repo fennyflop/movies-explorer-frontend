@@ -43,7 +43,6 @@ function Registration({ handleRegistration }) {
         handleRegistration(name, email, password);
     }
 
-
     return (
         <UserForm handleSubmit={handleSubmit} isDisabled={!(nameValid && emailValid && passwordValid)} question="Уже зарегистрированы?" name="registration" linkName="Войти" submitName="Зарегистрироваться" title="Добро пожаловать!" toPath="/signin">
             <fieldset className="registration__fieldset">

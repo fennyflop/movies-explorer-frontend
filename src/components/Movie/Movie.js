@@ -9,7 +9,7 @@ function Movie({ isInSavedMovies, handleSave, movie }) {
         return null;
     }
 
-    const thumbnailNotFound = 'https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg';
+    const thumbnail = movie.image ? `https://api.nomoreparties.co${movie.image.url}` : 'https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg';
 
     function convertTime() {
         const { duration } = movie;
@@ -26,7 +26,7 @@ function Movie({ isInSavedMovies, handleSave, movie }) {
 
     return (
         <div className="movie">
-            <a target="_blank" href={movie.trailerLink}><img className="movie__thumbnail" alt="thumbnail" src={`https://api.nomoreparties.co${movie.image.url}` || thumbnailNotFound} /></a>
+            <a target="_blank" href={movie.trailerLink}><img className="movie__thumbnail" alt="thumbnail" src={thumbnail} /></a>
             <div className="movie__info">
                 <div className="movie__toolbar">
                     <h3 className="movie__title">{movie.nameRU}</h3>
