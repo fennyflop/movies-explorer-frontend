@@ -9,7 +9,7 @@ function Movie({ handleBookmark, handleUnsave, movie }) {
         return null;
     }
 
-    const thumbnail = movie._id ? movie.image : `https://api.nomoreparties.co${movie.image.url}` || 'https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg';
+    const thumbnail = movie._id ? movie.image : `https://api.nomoreparties.co${movie.image.url}` || 'https://www.meme-arsenal.com/memes/43ee710082bdd5b7ea27fbba58c87e40.jpg';
 
     function convertTime() {
         const { duration } = movie;

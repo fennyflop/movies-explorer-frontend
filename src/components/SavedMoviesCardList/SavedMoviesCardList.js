@@ -1,6 +1,6 @@
 import Movie from '../Movie/Movie';
 
-function MoviesCardList() {
+function MoviesCardList({ movieList }) {
     return (
         <section className="movies">
             <div className="movies__list">

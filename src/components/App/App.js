@@ -86,14 +86,9 @@ function App() {
       return;
     }
 
-    mainApi.getSavedMovies(localStorage.getItem('jwt'))
-      .then((updatedSavedMovies) => {
-        setSavedMovies(updatedSavedMovies);
-        localStorage.setItem('saved-movies', JSON.stringify(updatedSavedMovies));
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+
+    localStorage.removeItem('saved-movies');
+    updateSavedMovies();
 
     return handleMovies();
   }, [isLogged])
@@ -132,17 +127,23 @@ function App() {
 
   // Save and deletion
 
+  function updateSavedMovies() {
+    return mainApi.getSavedMovies(localStorage.getItem('jwt'))
+      .then((updatedSavedMovies) => {
+        setSavedMovies(updatedSavedMovies);
+        localStorage.setItem('saved-movies', JSON.stringify(updatedSavedMovies));
+        console.log('Movies updated!');
+        console.log(updatedSavedMovies);
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
   function handleBookmark(movie) {
     return mainApi.handleSaveMovie(movie, localStorage.getItem('jwt'))
       .then(() => {
-        mainApi.getSavedMovies((localStorage.getItem('jwt')))
-          .then((updatedSavedMovies) => {
-            setSavedMovies(updatedSavedMovies);
-            localStorage.setItem('saved-movies', JSON.stringify(updatedSavedMovies));
-          })
-          .catch((err) => {
-            console.log(err);
-          })
+        updateSavedMovies();
       })
       .catch((err) => {
         console.log(err);
@@ -152,14 +153,7 @@ function App() {
   function handleUnsave(id) {
     return mainApi.handleDeleteMovie(id, localStorage.getItem('jwt'))
       .then(() => {
-        mainApi.getSavedMovies((localStorage.getItem('jwt')))
-          .then((updatedSavedMovies) => {
-            setSavedMovies(updatedSavedMovies);
-            localStorage.setItem('saved-movies', JSON.stringify(updatedSavedMovies));
-          })
-          .catch((err) => {
-            console.log(err);
-          })
+        updateSavedMovies();
       })
       .catch((err) => {
         console.log(err);
