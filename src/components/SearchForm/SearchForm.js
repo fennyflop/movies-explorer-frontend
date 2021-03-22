@@ -2,7 +2,7 @@ import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { useState } from 'react';
 
-function SearchForm({ handleSearchForm, hasAnswers }) {
+function SearchForm({ handleSearchForm, hasAnswers, movieList, areSaved }) {
 
     const [query, setQuery] = useState('');
     const [shortFilmsDecision, setShortFilmsDecision] = useState(false);
@@ -13,7 +13,7 @@ function SearchForm({ handleSearchForm, hasAnswers }) {
 
     function handleSubmit(evt) {
         evt.preventDefault();
-        handleSearchForm(query, shortFilmsDecision);
+        handleSearchForm(query, shortFilmsDecision, areSaved);
         setQuery('');
     }
 

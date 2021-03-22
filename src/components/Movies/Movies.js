@@ -8,7 +8,7 @@ function Movies({ openNavigationPopup, handleCloseNavigation, handleSearchForm, 
     return (
         <>
             <Header openNavigation={openNavigationPopup} />
-            <SearchForm handleSearchForm={handleSearchForm} hasAnswers={hasAnswers} />
+            <SearchForm handleSearchForm={handleSearchForm} hasAnswers={hasAnswers} movieList={movieList} areSaved={false} />
             <MoviesCardList defaultCount={defaultCount} rowCount={rowCount} isSearching={isSearching} movieList={movieList} hasAnswers={hasAnswers} hasErrors={hasErrors} handleSave={handleSave} handleDelete={handleDelete} />
             <Footer />
             <Navigation handleCloseNavigation={handleCloseNavigation} isOpen={isOpen} />

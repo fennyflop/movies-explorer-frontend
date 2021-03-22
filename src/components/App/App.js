@@ -56,12 +56,14 @@ function App() {
 
   const [movieList, setMovieList] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [savedSearchedMovieList, setSavedSearchedMovieList] = useState([]);
   const [searchedMovieList, setSearchedMovieList] = useState([]);
 
   // SearchForm
 
   const [isSearching, setIsSearching] = useState(false);
   const [hasAnswers, setHasAnswers] = useState(true); // Не иницирует плейродер сразу
+  const [hasAnswersSaved, setHasAnswersSaved] = useState(true);
   const [hasErrors, setHasErrors] = useState(false);
 
   // Row Manipulation
@@ -160,7 +162,7 @@ function App() {
       })
   }
 
-  async function filterMovies(query, shortFilmsDecision) {
+  async function filterMovies(query, shortFilmsDecision, areSaved) {
     // Убираем все пред. сообщения
     setHasAnswers(false);
     setHasErrors(false);
@@ -170,17 +172,21 @@ function App() {
     const regExp = new RegExp(`${query}`, "i");
     const validDuration = shortFilmsDecision ? 0 : 40;
 
-    const filteredMovies = movieList.filter((e) => {
+    const filteredMovies = !areSaved ? movieList.filter((e) => {
+      return regExp.test(e.nameRU) && e.duration > validDuration;
+    }) : savedMovies.filter((e) => {
       return regExp.test(e.nameRU) && e.duration > validDuration;
     });
 
     return filteredMovies;
   }
 
-  function handleSearchForm(query, shortFilmsDecision) {
-    filterMovies(query, shortFilmsDecision)
+  function handleSearchForm(query, shortFilmsDecision, areSaved) {
+    filterMovies(query, shortFilmsDecision, areSaved)
       .then((filteredMovies) => {
-        setSearchedMovieList(filteredMovies);
+        console.log(filteredMovies);
+        if (!areSaved) { setSearchedMovieList(filteredMovies) }
+        else { setSavedSearchedMovieList(filteredMovies); }
         setHasAnswers(true);
       })
       .catch((err) => {
@@ -250,13 +256,17 @@ function App() {
         <Switch>
           <ProtectedRoute path="/movies" openNavigationPopup={openNavigationPopup} hasAnswers={hasAnswers}
             handleSearchForm={handleSearchForm} defaultCount={defaultCount} rowCount={rowCount}
-            isSearching={isSearching} movieList={movieList} hasErrors={hasErrors} handleSave={saveMovie}
+            isSearching={isSearching} movieList={searchedMovieList} hasErrors={hasErrors} handleSave={saveMovie}
             handleDelete={deleteMovie} path="/movies" component={Movies} handleCloseNavigation={closeNavgiationPopup} isOpen={navigationOpened}
             loggedIn={isLogged} />
-          <ProtectedRoute openNavigationPopup={openNavigationPopup} handleNavgiationPopup={closeNavgiationPopup} movieList={savedMovies} handleDelete={deleteMovie} isOpen={navigationOpened} path="/saved-movies" loggedIn={isLogged} component={SavedMovies} />
+          <ProtectedRoute openNavigationPopup={openNavigationPopup} handleNavgiationPopup={closeNavgiationPopup}
+            movieList={savedSearchedMovieList.length === 0 ? savedMovies : savedSearchedMovieList} handleDelete={deleteMovie} isOpen={navigationOpened}
+            defaultCount={defaultCount} rowCount={rowCount}
+            handleSearchForm={handleSearchForm}
+            path="/saved-movies" loggedIn={isLogged} component={SavedMovies} />
           <ProtectedRoute openNavigation={openNavigationPopup} handleLogout={handleLogout} path="/profile" component={ProfilePage} loggedIn={isLogged} />
           <Route exact path="/">
-            <Header isNotLogged={true} openNavigation={openNavigationPopup} />
+            <Header isLogged={isLogged} openNavigation={openNavigationPopup} />
             <Promo />
             <AboutProject />
             <Techs />

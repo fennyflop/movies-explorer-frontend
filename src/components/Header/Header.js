@@ -4,12 +4,12 @@ import burger from '../../images/burger.png';
 import ProfileRedirect from '../ProfileRedirect/ProfileRedirect';
 import { Link, NavLink } from 'react-router-dom';
 
-function Header({ isNotLogged, openNavigation }) {
+function Header({ isLogged, openNavigation }) {
     return (
         <>
-            <header className={`header ${isNotLogged ? 'header__landing' : ''}`}>
+            <header className={`header ${isLogged ? 'header__landing' : ''}`}>
                 {
-                    !isNotLogged ?
+                    !isLogged ?
                         (
                             <>
                                 <Link to="/">
