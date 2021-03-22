@@ -4,7 +4,7 @@ import burger from '../../images/burger.png';
 import ProfileRedirect from '../ProfileRedirect/ProfileRedirect';
 import { Link, NavLink } from 'react-router-dom';
 
-function Header({ isNotLogged }) {
+function Header({ isNotLogged, openNavigation }) {
     return (
         <>
             <header className={`header ${isNotLogged ? 'header__landing' : ''}`}>
@@ -21,7 +21,9 @@ function Header({ isNotLogged }) {
                                         <li><NavLink activeClassName="header__link-active" className="header__link" to="/saved-movies">Сохранённые фильмы</NavLink></li>
                                     </ul>
                                     <ProfileRedirect />
-                                    <img className="header__burger header__burger-shown" alt="burger" src={burger} />
+                                    <img className="header__burger header__burger-shown" alt="burger" src={burger} onClick={() => {
+                                        openNavigation();
+                                    }} />
                                 </nav>
                             </>
                         )

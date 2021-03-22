@@ -68,6 +68,10 @@ function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [currentUser, setCurrentUser] = useState();
 
+  // Navigation popup
+
+  const [navigationOpened, setNavigationOpened] = useState(false);
+
   // Контроль повторного входа
 
   useEffect(() => {
@@ -222,6 +226,16 @@ function App() {
       })
   }
 
+  // Close and open navigation popup
+
+  function openNavigationPopup() {
+    setNavigationOpened(true);
+  }
+
+  function closeNavgiationPopup() {
+    setNavigationOpened(false);
+  }
+
   // Временное решение с isNotLogged
   return (
     <div className="App">
@@ -229,7 +243,7 @@ function App() {
         <Switch>
           <Route exact path="/">
             {/* Временное решение с header */}
-            <Header isNotLogged={true} />
+            <Header isNotLogged={true} openNavigation={openNavigationPopup} />
             <Promo />
             <AboutProject />
             <Techs />
@@ -244,22 +258,22 @@ function App() {
             <Registration handleRegistration={handleRegistration} />
           </Route>
           <Route path="/profile">
-            <Header />
+            <Header openNavigation={openNavigationPopup} />
             <Profile handleLogout={handleLogout} />
           </Route>
           <Route path="/movies">
-            <Header />
+            <Header openNavigation={openNavigationPopup} />
             <SearchForm handleSearchForm={handleSearchForm} hasAnswers={hasAnswers} />
             <MoviesCardList defaultCount={defaultCount} rowCount={rowCount} isSearching={isSearching} movieList={searchedMovieList} hasAnswers={hasAnswers} hasErrors={hasErrors} handleSave={saveMovie} handleDelete={deleteMovie} />
             <Footer />
-            <Navigation />
+            <Navigation handleCloseNavigation={closeNavgiationPopup} isOpen={navigationOpened} />
           </Route>
           <Route path="/saved-movies">
-            <Header />
+            <Header openNavigation={openNavigationPopup} />
             <SearchForm />
             <SavedMoviesCardList movieList={savedMovies} handleDelete={deleteMovie} />
             <Footer />
-            <Navigation />
+            <Navigation handleCloseNavigation={closeNavgiationPopup} isOpen={navigationOpened} />
           </Route>
         </Switch>
       </CurrentUserContext.Provider>
