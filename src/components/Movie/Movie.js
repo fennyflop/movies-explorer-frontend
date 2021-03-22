@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import SavedMovies from '../SavedMovies/SavedMovies';
 import './Movie.css';
 
 function Movie({ movie, handleSave, handleDelete, isInSavedMovies }) {
@@ -17,7 +16,7 @@ function Movie({ movie, handleSave, handleDelete, isInSavedMovies }) {
         return null;
     }
 
-    const thumbnail = movie._id ? movie.image : `https://api.nomoreparties.co${movie.image.url}` || 'https://www.meme-arsenal.com/memes/43ee710082bdd5b7ea27fbba58c87e40.jpg';
+    const thumbnail = movie._id ? movie.image : `https://api.nomoreparties.co${movie.image.url}`;
 
     // Time conversion
     function convertTime() {
@@ -47,7 +46,7 @@ function Movie({ movie, handleSave, handleDelete, isInSavedMovies }) {
 
     return (
         <div className="movie">
-            <a target="_blank" href={movie.trailerLink}><img className="movie__thumbnail" alt="thumbnail" src={thumbnail} /></a>
+            <a target="_blank" href={movie.trailerLink || movie.trailer}><img className="movie__thumbnail" alt="thumbnail" src={thumbnail} /></a>
             <div className="movie__info">
                 <div className="movie__toolbar">
                     <h3 className="movie__title">{movie.nameRU}</h3>

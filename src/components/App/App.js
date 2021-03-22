@@ -180,6 +180,7 @@ function App() {
     });
 
     return filteredMovies;
+
   }
 
   function handleSearchForm(query, shortFilmsDecision, areSaved) {
@@ -254,11 +255,6 @@ function App() {
     <div className="App">
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
-          {/* <ProtectedRoute path="/movies" openNavigationPopup={openNavigationPopup} hasAnswers={hasAnswers}
-            handleSearchForm={handleSearchForm} defaultCount={defaultCount} rowCount={rowCount}
-            isSearching={isSearching} movieList={searchedMovieList} hasErrors={hasErrors} handleSave={saveMovie}
-            handleDelete={deleteMovie} path="/movies" component={Movies} handleCloseNavigation={closeNavgiationPopup} isOpen={navigationOpened}
-            loggedIn={isLogged} /> */}
           <ProtectedRoute
             openNavigationPopup={openNavigationPopup}
             hasAnswers={hasAnswers}
