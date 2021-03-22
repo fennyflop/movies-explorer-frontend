@@ -16,6 +16,12 @@ import Navigation from '../Navigation/Navigation';
 import Profile from '../Profile/Profile';
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
+// Pages
+import ProfilePage from '../ProfilePage/ProfilePage';
+import SavedMovies from '../SavedMovies/SavedMovies';
+import Movies from '../Movies/Movies';
+
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -207,6 +213,7 @@ function App() {
   function checkToken(jwt) {
     return mainApi.checkUserToken(jwt)
       .then((data) => {
+        console.log(data);
         setCurrentUser(data);
         setIsLogged(true);
         history.push('/movies');
@@ -241,8 +248,14 @@ function App() {
     <div className="App">
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
+          <ProtectedRoute path="/movies" openNavigationPopup={openNavigationPopup} hasAnswers={hasAnswers}
+            handleSearchForm={handleSearchForm} defaultCount={defaultCount} rowCount={rowCount}
+            isSearching={isSearching} movieList={movieList} hasErrors={hasErrors} handleSave={saveMovie}
+            handleDelete={deleteMovie} path="/movies" component={Movies} handleCloseNavigation={closeNavgiationPopup} isOpen={navigationOpened}
+            loggedIn={isLogged} />
+          <ProtectedRoute openNavigationPopup={openNavigationPopup} handleNavgiationPopup={closeNavgiationPopup} movieList={savedMovies} handleDelete={deleteMovie} isOpen={navigationOpened} path="/saved-movies" loggedIn={isLogged} component={SavedMovies} />
+          <ProtectedRoute openNavigation={openNavigationPopup} handleLogout={handleLogout} path="/profile" component={ProfilePage} loggedIn={isLogged} />
           <Route exact path="/">
-            {/* Временное решение с header */}
             <Header isNotLogged={true} openNavigation={openNavigationPopup} />
             <Promo />
             <AboutProject />
@@ -257,41 +270,10 @@ function App() {
           <Route path="/signup">
             <Registration handleRegistration={handleRegistration} />
           </Route>
-          <Route path="/profile">
-            <Header openNavigation={openNavigationPopup} />
-            <Profile handleLogout={handleLogout} />
-          </Route>
-          <Route path="/movies">
-            <Header openNavigation={openNavigationPopup} />
-            <SearchForm handleSearchForm={handleSearchForm} hasAnswers={hasAnswers} />
-            <MoviesCardList defaultCount={defaultCount} rowCount={rowCount} isSearching={isSearching} movieList={searchedMovieList} hasAnswers={hasAnswers} hasErrors={hasErrors} handleSave={saveMovie} handleDelete={deleteMovie} />
-            <Footer />
-            <Navigation handleCloseNavigation={closeNavgiationPopup} isOpen={navigationOpened} />
-          </Route>
-          <Route path="/saved-movies">
-            <Header openNavigation={openNavigationPopup} />
-            <SearchForm />
-            <SavedMoviesCardList movieList={savedMovies} handleDelete={deleteMovie} />
-            <Footer />
-            <Navigation handleCloseNavigation={closeNavgiationPopup} isOpen={navigationOpened} />
-          </Route>
         </Switch>
       </CurrentUserContext.Provider>
-    </div>
+    </div >
   );
 }
 
 export default App;
-
-  // useEffect(() => {
-  //   // Movies
-  //   if (!isLogged) {
-  //     return;
-  //   }
-  //   const movies = localStorage.getItem('movies');
-  //   if (!movies || !JSON.parse(movies).length) {
-  //     return handleMovies();
-  //   }
-
-  //   return setMovieList(JSON.parse(movies));
-  // }, [isLogged]);
