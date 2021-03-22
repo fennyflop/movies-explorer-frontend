@@ -20,6 +20,7 @@ import mainApi from '../../utils/MainApi';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Movies from '../Movies/Movies';
+import MoviesComponents from '../MovieComponents/MovieComponents';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -184,7 +185,6 @@ function App() {
   function handleSearchForm(query, shortFilmsDecision, areSaved) {
     filterMovies(query, shortFilmsDecision, areSaved)
       .then((filteredMovies) => {
-        console.log(filteredMovies);
         if (!areSaved) { setSearchedMovieList(filteredMovies) }
         else { setSavedSearchedMovieList(filteredMovies); }
         setHasAnswers(true);
@@ -254,16 +254,43 @@ function App() {
     <div className="App">
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
-          <ProtectedRoute path="/movies" openNavigationPopup={openNavigationPopup} hasAnswers={hasAnswers}
+          {/* <ProtectedRoute path="/movies" openNavigationPopup={openNavigationPopup} hasAnswers={hasAnswers}
             handleSearchForm={handleSearchForm} defaultCount={defaultCount} rowCount={rowCount}
             isSearching={isSearching} movieList={searchedMovieList} hasErrors={hasErrors} handleSave={saveMovie}
             handleDelete={deleteMovie} path="/movies" component={Movies} handleCloseNavigation={closeNavgiationPopup} isOpen={navigationOpened}
-            loggedIn={isLogged} />
-          <ProtectedRoute openNavigationPopup={openNavigationPopup} handleNavgiationPopup={closeNavgiationPopup}
-            movieList={savedSearchedMovieList.length === 0 ? savedMovies : savedSearchedMovieList} handleDelete={deleteMovie} isOpen={navigationOpened}
-            defaultCount={defaultCount} rowCount={rowCount}
+            loggedIn={isLogged} /> */}
+          <ProtectedRoute
+            openNavigationPopup={openNavigationPopup}
+            hasAnswers={hasAnswers}
             handleSearchForm={handleSearchForm}
-            path="/saved-movies" loggedIn={isLogged} component={SavedMovies} />
+            defaultCount={defaultCount}
+            rowCount={rowCount}
+            isSearching={isSearching}
+            movieList={searchedMovieList}
+            hasErrors={hasErrors}
+            areSaved={false}
+            handleCloseNavigation={closeNavgiationPopup}
+            isOpen={navigationOpened}
+            handleSave={saveMovie}
+            handleDelete={deleteMovie}
+            path="/movies"
+            loggedIn={isLogged}
+            component={MoviesComponents}
+          />
+          <ProtectedRoute
+            openNavigationPopup={openNavigationPopup}
+            handleNavgiationPopup={closeNavgiationPopup}
+            movieList={savedSearchedMovieList.length === 0 ? savedMovies : savedSearchedMovieList}
+            // Если нет найденных фильмов, высвечиваем все сохранённые ^
+            handleDelete={deleteMovie}
+            isOpen={navigationOpened}
+            defaultCount={defaultCount}
+            rowCount={rowCount}
+            handleSearchForm={handleSearchForm}
+            areSaved={true}
+            path="/saved-movies"
+            loggedIn={isLogged}
+            component={MoviesComponents} />
           <ProtectedRoute openNavigation={openNavigationPopup} handleLogout={handleLogout} path="/profile" component={ProfilePage} loggedIn={isLogged} />
           <Route exact path="/">
             <Header isLogged={isLogged} openNavigation={openNavigationPopup} />

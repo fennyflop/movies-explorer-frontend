@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react';
+import SavedMovies from '../SavedMovies/SavedMovies';
 import './Movie.css';
 
 function Movie({ movie, handleSave, handleDelete, isInSavedMovies }) {
 
     const [isSaved, setIsSaved] = useState(false);
-    const [cardId, setCardId] = useState('');
 
     useEffect(() => {
         if (movie) {
-            // Отображение самого первого
             const savedList = JSON.parse(localStorage.getItem('saved-movies'));
             setIsSaved(savedList.find((item) => item.nameRU === movie.nameRU) ? savedList.find((item) => item.nameRU === movie.nameRU)._id : false);
         }
-    }, [])
+    }, [movie])
 
     if (!movie) {
         return null;
@@ -23,30 +22,27 @@ function Movie({ movie, handleSave, handleDelete, isInSavedMovies }) {
     // Time conversion
     function convertTime() {
         const { duration } = movie;
-        const hours = Math.floor(duration / 60) || 0;
-        const minutes = Math.floor(duration % 60);
-        return `${hours}ч${minutes}м`;
+        return `${Math.floor(duration / 60) || 0}ч${Math.floor(duration % 60)}м`;
     }
     // Get saved-movies
     function getSavedMovies() {
         const savedList = JSON.parse(localStorage.getItem('saved-movies'));
-        const cardLikedId = savedList.find((item) => item.nameRU === movie.nameRU) ? savedList.find((item) => item.nameRU === movie.nameRU)._id : false;
-        return cardLikedId;
+        return savedList.find((item) => item.nameRU === movie.nameRU) ? savedList.find((item) => item.nameRU === movie.nameRU)._id : false;
     }
 
     // Bookmarking
     function handleSaveClick() {
-        const cardLikedId = getSavedMovies();
-        if (!cardLikedId) {
-            handleSave(movie).then(() => { setIsSaved(true) }).catch((err) => { console.log(err) });
-        } else {
-            handleDelete(cardLikedId).then(() => { setIsSaved(false) }).catch((err) => { console.log(err) });
-        }
+        const cardId = getSavedMovies();
+        if (!cardId) return bookmarkMovie();
+        return deleteMovie();
+    }
+    // Bookmark
+    function bookmarkMovie() {
+        handleSave(movie).then(() => { setIsSaved(true) }).catch((err) => { console.log(err) });
     }
     // Remove from saved ones
     function deleteMovie() {
-        const cardLikedId = getSavedMovies();
-        handleDelete(cardLikedId).then(() => { setIsSaved(false) }).catch((err) => { console.log(err) });
+        handleDelete(getSavedMovies()).then(() => { setIsSaved(false) }).catch((err) => { console.log(err) });
     }
 
     return (

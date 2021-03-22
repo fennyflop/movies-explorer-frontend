@@ -5,11 +5,10 @@ import QueryError from '../QueryError/QueryError';
 import Preloader from '../Preloader/Preloader';
 import { useEffect, useState } from 'react';
 
-function MoviesCardList({ movieList, isSearching, hasAnswers, hasErrors, rowCount, defaultCount, handleSave, handleDelete }) {
+function MoviesCardList({ defaultCount, rowCount, areSaved, handleSave, handleDelete, isSearching, hasErrors, movieList }) {
 
     const [elements, setElements] = useState(0);
     const [displayedMovies, setDisplayedMovies] = useState([]);
-
 
     // Схожие viewportы
     useEffect(() => {
@@ -38,8 +37,8 @@ function MoviesCardList({ movieList, isSearching, hasAnswers, hasErrors, rowCoun
     return (
         <section className="movies">
             <div className="movies__list">
-                {hasAnswers ? displayedMovies.map((movie, i) => {
-                    return <Movie movie={movie} isInSavedMovies={false} handleSave={handleSave} handleDelete={handleDelete} key={i} />
+                {movieList.length ? displayedMovies.map((movie, i) => {
+                    return <Movie movie={movie} isInSavedMovies={areSaved} handleSave={handleSave} handleDelete={handleDelete} key={i} />
                 }) : ''}
             </div>
             {movieList.length && elements < movieList.length ? <button className="movies__button" onClick={handleMoreMovies}>Ещё</button> : ''}
