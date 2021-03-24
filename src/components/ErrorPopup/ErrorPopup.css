@@ -1,0 +1,23 @@
+.error {
+    position: fixed;
+    padding: 30px;
+    top: -150px;
+    right: 50%;
+    transform: translate(50%, 0);
+    background-color: crimson;
+    transition: all .4s ease-in-out;
+}
+.error__opened {
+    top: 30px;
+}
+.error__close {
+    position: absolute;
+    top: 0px;
+    right: 0;
+}
+.error__message {
+    color: white;
+    margin: 0;
+    max-width: 500px;
+    word-break: normal;
+}

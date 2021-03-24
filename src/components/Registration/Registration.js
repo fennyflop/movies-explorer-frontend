@@ -28,7 +28,6 @@ function Registration({ handleRegistration }) {
     };
 
     function handleForm() {
-        console.log('Form handed');
         handleRegistration(values.name, values.email, values.password);
     }
 

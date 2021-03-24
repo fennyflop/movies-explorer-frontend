@@ -9,11 +9,7 @@ import Promo from '../Promo/Promo';
 import Footer from '../Footer/Footer';
 import Registration from '../Registration/Registration';
 import Login from '../Login/Login';
-import SearchForm from '../SearchForm/SearchForm';
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import SavedMoviesCardList from '../SavedMoviesCardList/SavedMoviesCardList';
-import Navigation from '../Navigation/Navigation';
-import Profile from '../Profile/Profile';
+import ErrorPopup from '../ErrorPopup/ErrorPopup';
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
 // Pages
@@ -80,6 +76,11 @@ function App() {
   // Navigation popup
 
   const [navigationOpened, setNavigationOpened] = useState(false);
+
+  // Error Popup
+
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isErrorOpened, setIsErrorOpened] = useState();
 
   // Контроль повторного входа
 
@@ -149,7 +150,7 @@ function App() {
         updateSavedMovies();
       })
       .catch((err) => {
-        console.log(err);
+        openError(err);
       })
   }
 
@@ -159,7 +160,7 @@ function App() {
         updateSavedMovies();
       })
       .catch((err) => {
-        console.log(err);
+        openError(err);
       })
   }
 
@@ -191,7 +192,7 @@ function App() {
         setHasAnswers(true);
       })
       .catch((err) => {
-        console.log(err);
+        openError(err);
         setHasErrors(true);
       })
       .finally(() => {
@@ -207,7 +208,7 @@ function App() {
         history.push('/movies');
       })
       .catch((err) => {
-        console.log(err);
+        openError(err);
       })
   }
 
@@ -226,7 +227,7 @@ function App() {
         history.push('/movies');
       })
       .catch((err) => {
-        console.log(err);
+        openError(err);
       })
   }
 
@@ -236,8 +237,19 @@ function App() {
         history.push('/signin')
       })
       .catch((err) => {
-        console.log(err);
+        openError(err);
       })
+  }
+
+  // Error opening
+
+  function openError(msg) {
+    setErrorMessage(msg || '');
+    setIsErrorOpened(true);
+  }
+
+  function closeError() {
+    setIsErrorOpened(false);
   }
 
   // Close and open navigation popup
@@ -299,6 +311,7 @@ function App() {
           </Route>
           <Route path="/signin">
             <Login handleLogin={handleLogin} />
+            <ErrorPopup message={errorMessage} isOpened={isErrorOpened} />
           </Route>
           <Route path="/signup">
             <Registration handleRegistration={handleRegistration} />
