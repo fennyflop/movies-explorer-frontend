@@ -316,6 +316,9 @@ function App() {
           <Route path="/signup">
             <Registration handleRegistration={handleRegistration} />
           </Route>
+          <Route path="*">
+            <NotFoundPage />
+          </Route>
         </Switch>
       </CurrentUserContext.Provider>
     </div >
