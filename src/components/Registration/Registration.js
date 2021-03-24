@@ -24,11 +24,11 @@ function Registration({ handleRegistration }) {
         } else if (values.password.length < 8) {
             errors.password = 'Минимальная длинна пароля - 6 символов';
         }
-        console.log(errors);
         return errors;
     };
 
     function handleForm() {
+        console.log('Form handed');
         handleRegistration(values.name, values.email, values.password);
     }
 
