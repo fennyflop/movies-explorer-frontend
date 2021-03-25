@@ -95,7 +95,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-    baseUrl: 'https://api.films.students.nomoredomains.monster',
+    baseUrl: 'http://api.exultation.students.nomoredomains.monster',
 });
 
 export default mainApi;

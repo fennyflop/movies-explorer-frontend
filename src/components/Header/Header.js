@@ -2,15 +2,15 @@ import './Header.css';
 import logo from '../../images/logo.svg';
 import burger from '../../images/burger.png';
 import ProfileRedirect from '../ProfileRedirect/ProfileRedirect';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 
-function Header(props) {
-    const { isLogged, openNavigation } = props;
+function Header({ openNavigation, isLogged }) {
+    const location = useLocation();
     return (
         <>
-            <header className={`header ${window.location.pathname == '/' ? 'header__landing' : ''}`}>
+            <header className={`header ${location.pathname == '/' ? 'header__landing' : ''}`}>
                 {
-                    !window.location.pathname == "/" ?
+                    !isLogged ?
                         (
                             <>
                                 <Link to="/">
