@@ -214,7 +214,7 @@ function App() {
   function handleLogout() {
     localStorage.removeItem('jwt');
     setIsLogged(false);
-    history.push('/signin')
+    history.push('/')
   }
 
   function checkToken(jwt) {
@@ -237,6 +237,16 @@ function App() {
       })
       .catch((err) => {
         openError(err);
+      })
+  }
+
+  function handleUpdateUser(name, email) {
+    return mainApi.updateUserInfo(name, email, localStorage.getItem('jwt'))
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => {
+        console.log(err);
       })
   }
 
@@ -300,7 +310,7 @@ function App() {
             loggedIn={isLogged}
             hasAnswers={!movieList.length !== 0}
             component={MoviesComponents} />
-          <ProtectedRoute openNavigation={openNavigationPopup} handleLogout={handleLogout} path="/profile" component={ProfilePage} loggedIn={isLogged} />
+          <ProtectedRoute openNavigation={openNavigationPopup} handleLogout={handleLogout} path="/profile" userName={currentUser ? currentUser.name : ''} userEmail={currentUser ? currentUser.email : ''} component={ProfilePage} loggedIn={isLogged} handleUpdateUser={handleUpdateUser} />
           <Route exact path="/">
             <Header isLogged={isLogged} openNavigation={openNavigationPopup} />
             <Promo />

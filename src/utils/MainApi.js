@@ -59,6 +59,19 @@ class MainApi {
             return this._handleOriginalResponse(res);
         })
     }
+    updateUserInfo(name, email, jwt) {
+        return fetch(`${this._baseUrl}/users/me`, {
+            method: 'PATCH',
+            headers: {
+                "Authorization": `Bearer ${jwt}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name, email })
+        })
+            .then((res) => {
+                return this._handleOriginalResponse(res);
+            })
+    }
     handleDeleteMovie(movieId, jwt) {
         return fetch(`${this._baseUrl}/movies/${movieId}`, {
             method: "DELETE",
