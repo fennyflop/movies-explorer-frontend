@@ -28,6 +28,10 @@ function MoviesCardList({ defaultCount, rowCount, areSaved, handleSave, handleDe
         setDisplayedMovies(accumulator);
     }, [movieList, elements]);
 
+    useEffect(() => {
+        console.log(isSearching);
+    }, [isSearching])
+
     function handleMoreMovies() {
         if (rowCount < movieList.length) {
             return setElements(elements + rowCount);
@@ -37,13 +41,13 @@ function MoviesCardList({ defaultCount, rowCount, areSaved, handleSave, handleDe
     return (
         <section className="movies">
             <div className="movies__list">
-                {movieList.length ? displayedMovies.map((movie, i) => {
+                {movieList.length && !isSearching ? displayedMovies.map((movie, i) => {
                     return <Movie movie={movie} isInSavedMovies={areSaved} handleSave={handleSave} handleDelete={handleDelete} key={i} />
                 }) : ''}
             </div>
             {movieList.length && elements < movieList.length ? <button className="movies__button" onClick={handleMoreMovies}>Ещё</button> : ''}
             {hasErrors ? <QueryError /> : ''}
-            {!movieList.length && !hasErrors ? <QueryNotFound /> : ''}
+            {!movieList.length && !hasErrors && !isSearching ? <QueryNotFound /> : ''}
             {isSearching ? <Preloader /> : ''}
         </section>
     );

@@ -48,7 +48,7 @@ function Profile({ handleLogout, handleUpdateUser, userName, userEmail }) {
                     <input className='profile__input' type="text" name="email" onChange={handleChange} />
                 </fieldset>
                 <button type="submit" className="profile__button profile__submit" form="profile" onClick={handleForm} disabled={errors.name || errors.email ? true : false}>Редактировать</button>
-                <button className="profile__button profile__exit" onClick={handleLogout}>Выйти из аккаунта</button>
+                <button className="profile__button profile__exit" onClick={() => { handleLogout() }}>Выйти из аккаунта</button>
             </form>
         </section >
     );

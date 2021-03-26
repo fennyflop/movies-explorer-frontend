@@ -165,12 +165,6 @@ function App() {
   }
 
   async function filterMovies(query, shortFilmsDecision, areSaved) {
-    // Убираем все пред. сообщения
-    setHasAnswers(false);
-    setHasErrors(false);
-    // Начинаем поиск
-    setIsSearching(true);
-
     const regExp = new RegExp(`${query}`, "i");
     const validDuration = shortFilmsDecision ? 0 : 40;
 
@@ -184,19 +178,24 @@ function App() {
   }
 
   function handleSearchForm(query, shortFilmsDecision, areSaved) {
-    filterMovies(query, shortFilmsDecision, areSaved)
-      .then((filteredMovies) => {
-        if (!areSaved) { setSearchedMovieList(filteredMovies) }
-        else { setSavedSearchedMovieList(filteredMovies); }
-        setHasAnswers(true);
-      })
-      .catch((err) => {
-        openError(err);
-        setHasErrors(true);
-      })
-      .finally(() => {
-        setIsSearching(false);
-      })
+    setHasAnswers(true);
+    setHasErrors(false);
+    setIsSearching(true);
+    setTimeout(() => {
+      filterMovies(query, shortFilmsDecision, areSaved)
+        .then((filteredMovies) => {
+          if (!areSaved) { setSearchedMovieList(filteredMovies) }
+          else { setSavedSearchedMovieList(filteredMovies); }
+          setHasAnswers(true);
+        })
+        .catch((err) => {
+          openError(err);
+          setHasErrors(true);
+        })
+        .finally(() => {
+          setIsSearching(false);
+        })
+    }, 1000)
   }
 
   function handleLogin(email, password) {
@@ -212,8 +211,8 @@ function App() {
   }
 
   function handleLogout() {
-    localStorage.removeItem('jwt');
     setIsLogged(false);
+    localStorage.removeItem('jwt');
     history.push('/')
   }
 
@@ -321,10 +320,10 @@ function App() {
             <Footer />
           </Route>
           <Route path="/signin">
-            <Login handleLogin={handleLogin} />
+            <Login handleLogin={handleLogin} isLogged={isLogged} />
           </Route>
           <Route path="/signup">
-            <Registration handleRegistration={handleRegistration} />
+            <Registration handleRegistration={handleRegistration} isLogged={isLogged} />
           </Route>
           <Route path="*">
             <NotFoundPage />
