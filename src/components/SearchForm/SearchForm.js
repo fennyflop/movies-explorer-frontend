@@ -25,10 +25,6 @@ function SearchForm({ handleSearchForm, hasAnswers, movieList, areSaved, hasErro
         setShortFilmsDecision(decision);
     }
 
-    useState(() => {
-        console.log(hasAnswers);
-    }, [hasAnswers])
-
     return (
         <form className="search" onSubmit={handleSearchSubmit}>
             <div className="search__query">

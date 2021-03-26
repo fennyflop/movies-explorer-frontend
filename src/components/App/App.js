@@ -322,9 +322,8 @@ function App() {
           <Route path="/signin">
             <Login handleLogin={handleLogin} isLogged={isLogged} />
           </Route>
-          <Route path="/signup">
-            <Registration handleRegistration={handleRegistration} isLogged={isLogged} />
-          </Route>
+          {/* Уже прописан Route /signup */}
+          <Registration handleRegistration={handleRegistration} isLogged={isLogged} />
           <Route path="*">
             <NotFoundPage />
           </Route>

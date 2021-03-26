@@ -45,7 +45,7 @@ function MoviesCardList({ defaultCount, rowCount, areSaved, handleSave, handleDe
                     return <Movie movie={movie} isInSavedMovies={areSaved} handleSave={handleSave} handleDelete={handleDelete} key={i} />
                 }) : ''}
             </div>
-            {movieList.length && elements < movieList.length ? <button className="movies__button" onClick={handleMoreMovies}>Ещё</button> : ''}
+            {movieList.length && elements < movieList.length && !isSearching ? <button className="movies__button" onClick={handleMoreMovies}>Ещё</button> : ''}
             {hasErrors ? <QueryError /> : ''}
             {!movieList.length && !hasErrors && !isSearching ? <QueryNotFound /> : ''}
             {isSearching ? <Preloader /> : ''}

@@ -21,7 +21,6 @@ function Profile({ handleLogout, handleUpdateUser, userName, userEmail }) {
         } else if (values.email === userEmail) {
             errors.name = 'Электронная почта должна отличаться от предыдущей';
         }
-        console.log(errors);
         return errors;
     }
 
