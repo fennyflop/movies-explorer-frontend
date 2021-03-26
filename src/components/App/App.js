@@ -9,9 +9,9 @@ import Promo from '../Promo/Promo';
 import Footer from '../Footer/Footer';
 import Registration from '../Registration/Registration';
 import Login from '../Login/Login';
-import ErrorPopup from '../ErrorPopup/ErrorPopup';
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
+import ErrorPopup from '../ErrorPopup/ErrorPopup';
 // Pages
 import ProfilePage from '../ProfilePage/ProfilePage';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -181,7 +181,6 @@ function App() {
     });
 
     return filteredMovies;
-
   }
 
   function handleSearchForm(query, shortFilmsDecision, areSaved) {
@@ -284,6 +283,7 @@ function App() {
             path="/movies"
             loggedIn={isLogged}
             component={MoviesComponents}
+            hasAnswers={savedMovies.length !== 0}
           />
           <ProtectedRoute
             openNavigationPopup={openNavigationPopup}
@@ -298,6 +298,7 @@ function App() {
             areSaved={true}
             path="/saved-movies"
             loggedIn={isLogged}
+            hasAnswers={!movieList.length !== 0}
             component={MoviesComponents} />
           <ProtectedRoute openNavigation={openNavigationPopup} handleLogout={handleLogout} path="/profile" component={ProfilePage} loggedIn={isLogged} />
           <Route exact path="/">
@@ -311,7 +312,6 @@ function App() {
           </Route>
           <Route path="/signin">
             <Login handleLogin={handleLogin} />
-            <ErrorPopup message={errorMessage} isOpened={isErrorOpened} />
           </Route>
           <Route path="/signup">
             <Registration handleRegistration={handleRegistration} />
