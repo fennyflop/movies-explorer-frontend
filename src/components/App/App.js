@@ -220,7 +220,6 @@ function App() {
   function checkToken(jwt) {
     return mainApi.checkUserToken(jwt)
       .then((data) => {
-        console.log(data);
         setCurrentUser(data);
         setIsLogged(true);
         history.push('/movies');
@@ -242,8 +241,9 @@ function App() {
 
   function handleUpdateUser(name, email) {
     return mainApi.updateUserInfo(name, email, localStorage.getItem('jwt'))
-      .then((res) => {
-        setCurrentUser(res);
+      .then((data) => {
+        setCurrentUser(data);
+        history.push('/movies');
       })
       .catch((err) => {
         console.log(err);
