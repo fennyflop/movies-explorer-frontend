@@ -6,7 +6,7 @@ import Navigation from '../Navigation/Navigation';
 
 ///{ openNavigationPopup, handleCloseNavigation, navigationPopup, defaultCount, rowCount }
 
-function MoviesComponents({ handleSave, handleDelete, handleSearchForm, hasErrors, isSearching, openNavigationPopup, handleCloseNavigation, navigationPopup, defaultCount, rowCount, areSaved, movieList, hasAnswers }) {
+function MoviesComponents({ handleSave, handleDelete, handleSearchForm, hasErrors, isSearching, openNavigationPopup, handleCloseNavigation, isOpen, defaultCount, rowCount, areSaved, movieList, hasAnswers }) {
     return (
         <>
             <Header openNavigation={openNavigationPopup} />
@@ -21,7 +21,7 @@ function MoviesComponents({ handleSave, handleDelete, handleSearchForm, hasError
                 hasErrors={hasErrors} isSearching={isSearching}
                 handleSave={handleSave} handleDelete={handleDelete} />
             <Footer />
-            <Navigation handleCloseNavigation={handleCloseNavigation} isOpen={navigationPopup} />
+            <Navigation handleCloseNavigation={handleCloseNavigation} isOpen={isOpen} />
         </>
     );
 }
