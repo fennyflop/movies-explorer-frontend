@@ -77,28 +77,6 @@ function App() {
     updateSavedMovies();
   }, [isLogged])
 
-  function handleMovies() {
-    return moviesApi.getMovies()
-      .then((movies) => {
-        setMovieList(movies);
-        localStorage.setItem('movies', JSON.stringify(movies));
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  };
-
-  function updateSavedMovies() {
-    return mainApi.getSavedMovies(localStorage.getItem('jwt'))
-      .then((updatedSavedMovies) => {
-        setSavedMovies(updatedSavedMovies);
-        localStorage.setItem('saved-movies', JSON.stringify(updatedSavedMovies));
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
-
   // Контроль карточек в ряду
 
   useEffect(() => {
@@ -160,6 +138,7 @@ function App() {
     return mainApi.handleRegister(name, email, password)
       .then(() => {
         history.push('/signin')
+        openPopup('Аккаунт успешно создан');
       })
       .catch((err) => {
         openPopup('Не удалось зарегестрироваться');
@@ -172,6 +151,7 @@ function App() {
         setCurrentUser(data);
         setIsLogged(true);
         history.push('/movies');
+        openPopup('Данные успешно обновленны');
       })
       .catch((err) => {
         openPopup('Не удалось обновить данные');
@@ -182,9 +162,33 @@ function App() {
     setIsLogged(false);
     localStorage.removeItem('jwt');
     history.push('/')
+    openPopup('Успешный выход из аккаунта');
   }
 
   // Film functions
+
+  function handleMovies() {
+    return moviesApi.getMovies()
+      .then((movies) => {
+        setMovieList(movies);
+        localStorage.setItem('movies', JSON.stringify(movies));
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  };
+
+  function updateSavedMovies(updatedMovies) {
+    return mainApi.getSavedMovies(localStorage.getItem('jwt'))
+      .then((updatedSavedMovies) => {
+        setSavedMovies(updatedSavedMovies);
+        localStorage.setItem('saved-movies', JSON.stringify(updatedSavedMovies));
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
 
   async function saveMovie(movie) {
     return mainApi.handleSaveMovie(movie, localStorage.getItem('jwt'))
@@ -200,6 +204,9 @@ function App() {
     return mainApi.handleDeleteMovie(id, localStorage.getItem('jwt'))
       .then(() => {
         updateSavedMovies();
+        setSavedSearchedMovieList(savedSearchedMovieList.filter((curMovie) => {
+          return curMovie._id !== id;
+        }))
       })
       .catch((err) => {
         openPopup('Не удалось удалить фильм из сохранённых');
@@ -259,6 +266,7 @@ function App() {
         <Switch>
           <ProtectedRoute
             openNavigationPopup={openNavigationPopup}
+            handleCloseNavigation={closeNavgiationPopup}
             handleSearchForm={handleSearchForm}
             defaultCount={defaultCount}
             rowCount={rowCount}
@@ -266,7 +274,6 @@ function App() {
             movieList={searchedMovieList}
             hasErrors={hasErrors}
             areSaved={false}
-            handleCloseNavigation={closeNavgiationPopup}
             isOpen={navigationOpened}
             handleSave={saveMovie}
             handleDelete={deleteMovie}
@@ -277,9 +284,8 @@ function App() {
           />
           <ProtectedRoute
             openNavigationPopup={openNavigationPopup}
-            handleNavgiationPopup={closeNavgiationPopup}
+            handleCloseNavigation={closeNavgiationPopup}
             movieList={savedSearchedMovieList}
-            // Если нет найденных фильмов, высвечиваем все сохранённые ^
             handleDelete={deleteMovie}
             isOpen={navigationOpened}
             defaultCount={defaultCount}
@@ -292,7 +298,15 @@ function App() {
             hasErrors={hasErrors}
             isSearching={isSearching}
             component={MoviesComponents} />
-          <ProtectedRoute openNavigation={openNavigationPopup} handleLogout={handleLogout} path="/profile" userName={currentUser && currentUser.name} userEmail={currentUser ? currentUser.email : ''} component={ProfilePage} loggedIn={isLogged} handleUpdateUser={handleUpdateUser} />
+          <ProtectedRoute
+            openNavigation={openNavigationPopup}
+            handleLogout={handleLogout}
+            path="/profile"
+            userName={currentUser && currentUser.name}
+            userEmail={currentUser ? currentUser.email : ''}
+            component={ProfilePage} loggedIn={isLogged}
+            handleUpdateUser={handleUpdateUser}
+          />
           <Route exact path="/">
             <Header isLogged={isLogged} openNavigation={openNavigationPopup} />
             <Promo />
@@ -306,8 +320,9 @@ function App() {
           <Route path="/signin">
             <Login handleLogin={handleLogin} isLogged={isLogged} />
           </Route>
-          {/* Уже прописан Route /signup */}
-          <Registration handleRegistration={handleRegistration} isLogged={isLogged} />
+          <Route path="/signup">
+            <Registration handleRegistration={handleRegistration} isLogged={isLogged} />
+          </Route>
           <Route path="*">
             <NotFoundPage />
           </Route>

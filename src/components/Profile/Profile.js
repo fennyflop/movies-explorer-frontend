@@ -17,11 +17,11 @@ function Profile({ handleLogout, handleUpdateUser, userName, userEmail }) {
                 <p className="profile__error">{errors.name}</p>
                 <fieldset className="profile__fieldset">
                     <label className="profile__label" htmlFor="name">Имя</label>
-                    <input className={`profile__input ${errors.name && 'profile__input-error'}`} name="name" onChange={handleChange} placeholder={userName} values={values.name} />
+                    <input className={`profile__input ${errors.name && 'profile__input-error'}`} name="name" onChange={handleChange} placeholder={userName} values={values.name} autoComplete="off" />
                 </fieldset>
                 <fieldset className="profile__fieldset">
                     <label className="profile__label" htmlFor="email">Почта</label>
-                    <input className={`profile__input ${errors.email && 'profile__input-error'}`} name="email" onChange={handleChange} placeholder={userEmail} values={values.email} />
+                    <input className={`profile__input ${errors.email && 'profile__input-error'}`} name="email" onChange={handleChange} placeholder={userEmail} values={values.email} autoComplete="off" />
                 </fieldset>
                 <p className="profile__error">{errors.email}</p>
                 <button type="submit" className="profile__button profile__submit" form="profile" onClick={handleForm} disabled={errors.name || errors.email ? true : false}>Редактировать</button>

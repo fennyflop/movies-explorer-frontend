@@ -12,10 +12,6 @@ function Registration({ handleRegistration, isLogged }) {
         handleRegistration(values.name, values.email, values.password);
     }
 
-    useEffect(() => {
-        handleSubmit(); // Сразу начинает валидироваться
-    }, [Registration])
-
     return (
         <Route path="/signup">
             {

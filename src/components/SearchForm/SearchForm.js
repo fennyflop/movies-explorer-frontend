@@ -22,12 +22,13 @@ function SearchForm({ handleSearchForm, hasAnswers, movieList, areSaved, hasErro
 
     function handleCheckboxChange(decision) {
         setShortFilmsDecision(decision);
+        handleSearchForm(query, decision, areSaved);
     }
 
     return (
         <form className="search" onSubmit={handleSearchSubmit}>
             <div className="search__query">
-                <input className="search__input" type="text" placeholder="Фильм" onChange={handleQuery} value={query} name="query" placeholder={!(!movieList.length && !hasErrors) ? 'Фильм' : 'Ничего не найдено'} />
+                <input className="search__input" type="text" autoComplete="off" placeholder="Фильм" onChange={handleQuery} value={query} name="query" placeholder={!(!movieList.length && !hasErrors) ? 'Фильм' : 'Ничего не найдено'} />
                 <button className="search__submit">Поиск</button>
             </div>
             <p className={`search__error ${errorShown && 'search__error-shown'}`}>Нужно ввести ключевое слово</p>

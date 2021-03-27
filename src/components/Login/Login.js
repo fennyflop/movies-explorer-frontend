@@ -13,10 +13,6 @@ function Login({ handleLogin, isLogged }) {
         handleLogin(values.email, values.password); // Сразу начинает валидироваться
     }
 
-    useEffect(() => {
-        handleSubmit();
-    })
-
     return (
         <Route path="/signin">
             {

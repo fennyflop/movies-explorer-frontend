@@ -7,7 +7,6 @@ function Movie({ movie, handleSave, handleDelete, isInSavedMovies }) {
 
     useEffect(() => {
         if (movie) {
-            // Регулировка состояния
             const savedList = JSON.parse(localStorage.getItem('saved-movies'));
             setIsSaved(savedList.find((item) => item.nameRU === movie.nameRU) ? savedList.find((item) => item.nameRU === movie.nameRU)._id : false);
         }
