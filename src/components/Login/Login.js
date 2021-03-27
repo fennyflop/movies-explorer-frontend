@@ -29,7 +29,7 @@ function Login({ handleLogin, isLogged }) {
     return (
         <Route path="/signin">
             {
-                () => !isLogged ? <UserForm isDisabled={Object.keys(errors).length !== 0} question="Ещё не зарегистрированы?" name="login" linkName="Регистрация" submitName="Войти" title="Рады видеть!" toPath="/signup" handleSubmit={handleSubmit} >
+                () => !isLogged ? <UserForm isDisabled={Object.keys(errors).length !== 0} question="Ещё не зарегистрированы?" name="login" linkName="Регистрация" submitName="Войти" title="Рады видеть!" toPath="/signup" handleSubmit={handleSubmit}>
                     <fieldset className="login__fieldset">
                         <label className="login__label" htmlFor="email">E-mail</label>
                         <input className={`login__input ${errors.email ? 'login__input-error' : ''}`} autoComplete="off" type="email" name="email" placeholder="Введите свою почту" value={values.email || ''} onChange={handleChange} />

@@ -6,10 +6,10 @@ import Navigation from '../Navigation/Navigation';
 
 ///{ openNavigationPopup, handleCloseNavigation, navigationPopup, defaultCount, rowCount }
 
-function MoviesComponents({ handleSave, handleDelete, handleSearchForm, hasErrors, isSearching, openNavigationPopup, handleCloseNavigation, isOpen, defaultCount, rowCount, areSaved, movieList, hasAnswers }) {
+function MoviesComponents({ handleSave, handleDelete, handleSearchForm, hasErrors, isSearching, openNavigationPopup, handleCloseNavigation, isOpen, defaultCount, rowCount, areSaved, movieList, hasAnswers, loggedIn }) {
     return (
         <>
-            <Header openNavigation={openNavigationPopup} />
+            <Header openNavigation={openNavigationPopup} isLogged={loggedIn} />
             <SearchForm handleSearchForm={handleSearchForm}
                 movieList={movieList}
                 areSaved={areSaved}
