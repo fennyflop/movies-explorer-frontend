@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useForm = (callback, validate) => {
+const useForm = (callback, validate, validationInfo) => {
 
     const [values, setValues] = useState({});
     const [errors, setErrors] = useState({});
@@ -22,7 +22,8 @@ const useForm = (callback, validate) => {
     const handleChange = (event) => {
         event.persist();
         setValues(values => ({ ...values, [event.target.name]: event.target.value }));
-        setErrors(validate(values));
+        setErrors(validate(values, validationInfo));
+        console.log(errors);
     };
 
     return {

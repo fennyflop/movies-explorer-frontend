@@ -50,7 +50,7 @@ function Movie({ movie, handleSave, handleDelete, isInSavedMovies }) {
             <div className="movie__info">
                 <div className="movie__toolbar">
                     <h3 className="movie__title">{movie.nameRU}</h3>
-                    {isInSavedMovies ? <button className="movie__delete" onClick={deleteMovie}></button> : <button className={`movie__save ${isSaved ? 'movie__saved' : ''}`} onClick={handleSaveClick}></button>}
+                    {isInSavedMovies ? <button className="movie__delete" onClick={deleteMovie}></button> : <button className={`movie__save ${isSaved && 'movie__saved'}`} onClick={handleSaveClick}></button>}
                 </div>
                 <p className="movie__duration">{convertTime(movie.duration)}</p>
             </div>

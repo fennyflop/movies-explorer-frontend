@@ -1,30 +1,11 @@
 import './Registration.css';
 import UserForm from '../UserForm/UserForm';
 import useForm from '../FormHooks/FormHooks';
+import { validateSignupValues } from '../../utils/formValidation';
 import { Route, Redirect } from "react-router-dom";
 
 function Registration({ handleRegistration, isLogged }) {
-    const { values, errors, handleChange, handleSubmit } = useForm(handleForm, validate);
-
-    function validate(values) {
-        let errors = {};
-        if (!values.name) {
-            errors.name = 'Имя обязательно'
-        } else if (!/^[а-яА-Я\s]*$/i.test(values.name)) {
-            errors.name = 'Имя может содержать только латыницу';
-        }
-        if (!values.email) {
-            errors.email = 'Электронная почта обязательна';
-        } else if (!/\S+@\S+\.\S+/.test(values.email)) {
-            errors.email = 'Электронная почта не соответствует формату';
-        }
-        if (!values.password) {
-            errors.password = 'Пароль обязателен';
-        } else if (values.password.length < 8) {
-            errors.password = 'Минимальная длинна пароля - 6 символов';
-        }
-        return errors;
-    };
+    const { values, errors, handleChange, handleSubmit } = useForm(handleForm, validateSignupValues);
 
     function handleForm() {
         handleRegistration(values.name, values.email, values.password);

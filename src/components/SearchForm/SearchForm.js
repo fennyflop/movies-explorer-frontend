@@ -10,7 +10,6 @@ function SearchForm({ handleSearchForm, hasAnswers, movieList, areSaved, hasErro
     const [shortFilmsDecision, setShortFilmsDecision] = useState(false);
 
     function handleQuery(evt) {
-        console.log(evt.target.value);
         setQuery(evt.target.value);
     }
 
@@ -31,7 +30,7 @@ function SearchForm({ handleSearchForm, hasAnswers, movieList, areSaved, hasErro
                 <input className="search__input" type="text" placeholder="Фильм" onChange={handleQuery} value={query} name="query" placeholder={!(!movieList.length && !hasErrors) ? 'Фильм' : 'Ничего не найдено'} />
                 <button className="search__submit">Поиск</button>
             </div>
-            <p className={`search__error ${errorShown ? 'search__error-shown' : ''}`}>Нужно ввести ключевое слово</p>
+            <p className={`search__error ${errorShown && 'search__error-shown'}`}>Нужно ввести ключевое слово</p>
             <FilterCheckbox onChange={handleCheckboxChange} />
         </form>
     );

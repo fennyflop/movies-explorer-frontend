@@ -3,7 +3,8 @@
     flex-direction: column;
     background: #202020;
     box-sizing: border-box;
-    height: 180px;
+    min-height: 180px;
+    height: fit-content;
     margin-top: auto;
     padding: 80px 7% 20px;
 }

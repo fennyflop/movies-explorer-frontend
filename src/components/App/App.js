@@ -11,11 +11,9 @@ import Registration from '../Registration/Registration';
 import Login from '../Login/Login';
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
-import ErrorPopup from '../ErrorPopup/ErrorPopup';
+import Navigation from '../Navigation/Navigation';
 // Pages
 import ProfilePage from '../ProfilePage/ProfilePage';
-import SavedMovies from '../SavedMovies/SavedMovies';
-import Movies from '../Movies/Movies';
 import MoviesComponents from '../MovieComponents/MovieComponents';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -242,6 +240,7 @@ function App() {
     return mainApi.updateUserInfo(name, email, localStorage.getItem('jwt'))
       .then((data) => {
         setCurrentUser(data);
+        setIsLogged(true);
         history.push('/movies');
       })
       .catch((err) => {
@@ -309,7 +308,7 @@ function App() {
             loggedIn={isLogged}
             hasAnswers={!movieList.length !== 0}
             component={MoviesComponents} />
-          <ProtectedRoute openNavigation={openNavigationPopup} handleLogout={handleLogout} path="/profile" userName={currentUser ? currentUser.name : ''} userEmail={currentUser ? currentUser.email : ''} component={ProfilePage} loggedIn={isLogged} handleUpdateUser={handleUpdateUser} />
+          <ProtectedRoute openNavigation={openNavigationPopup} handleLogout={handleLogout} path="/profile" userName={currentUser && currentUser.name} userEmail={currentUser ? currentUser.email : ''} component={ProfilePage} loggedIn={isLogged} handleUpdateUser={handleUpdateUser} />
           <Route exact path="/">
             <Header isLogged={isLogged} openNavigation={openNavigationPopup} />
             <Promo />
@@ -318,6 +317,7 @@ function App() {
             <AboutMe />
             <Portfolio />
             <Footer />
+            <Navigation handleCloseNavigation={closeNavgiationPopup} isOpen={navigationOpened} />
           </Route>
           <Route path="/signin">
             <Login handleLogin={handleLogin} isLogged={isLogged} />
