@@ -12,36 +12,16 @@ import Login from '../Login/Login';
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
 import Navigation from '../Navigation/Navigation';
+import InfoPopup from '../InfoPopup/InfoPopup';
 // Pages
 import ProfilePage from '../ProfilePage/ProfilePage';
 import MoviesComponents from '../MovieComponents/MovieComponents';
 
+import useWindowDimensions from '../../utils/windowDimensions';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-
-function getWindowDimensions() {
-  const { innerWidth: width } = window;
-  return {
-    width,
-  };
-}
-
-function useWindowDimensions() {
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimensions(getWindowDimensions());
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  return windowDimensions;
-}
 
 function App() {
 
@@ -58,13 +38,17 @@ function App() {
 
   const [isSearching, setIsSearching] = useState(false);
   const [hasAnswers, setHasAnswers] = useState(true); // Не иницирует плейродер сразу
-  const [hasAnswersSaved, setHasAnswersSaved] = useState(true);
   const [hasErrors, setHasErrors] = useState(false);
 
   // Row Manipulation
 
   const [defaultCount, setDefaultCount] = useState(12);
   const [rowCount, setRowCount] = useState(0);
+
+  // Popup
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('Сообщение');
 
   // User
 
@@ -74,11 +58,6 @@ function App() {
   // Navigation popup
 
   const [navigationOpened, setNavigationOpened] = useState(false);
-
-  // Error Popup
-
-  const [errorMessage, setErrorMessage] = useState('');
-  const [isErrorOpened, setIsErrorOpened] = useState();
 
   // Контроль повторного входа
 
@@ -142,13 +121,78 @@ function App() {
     }, 1000)
   }, [width]);
 
+  function handleSearchForm(query, shortFilmsDecision, areSaved) {
+    setHasAnswers(true);
+    setHasErrors(false);
+    setIsSearching(true);
+    setTimeout(() => {
+      filterMovies(query, shortFilmsDecision, areSaved)
+        .then((filteredMovies) => {
+          if (!areSaved) { setSearchedMovieList(filteredMovies) }
+          else { setSavedSearchedMovieList(filteredMovies); }
+          setHasAnswers(true);
+        })
+        .catch((err) => {
+          openPopup(err);
+          setHasErrors(true);
+        })
+        .finally(() => {
+          setIsSearching(false);
+        })
+    }, 1000)
+  }
+
+  // User functions
+
+  function handleLogin(email, password) {
+    return mainApi.handleLogin(email, password)
+      .then(({ token }) => {
+        checkToken(token);
+        localStorage.setItem('jwt', token);
+        history.push('/movies');
+      })
+      .catch((err) => {
+        openPopup('Не удалось войти в аккаунт');
+      })
+  }
+
+  function handleRegistration(name, email, password) {
+    return mainApi.handleRegister(name, email, password)
+      .then(() => {
+        history.push('/signin')
+      })
+      .catch((err) => {
+        openPopup('Не удалось зарегестрироваться');
+      })
+  }
+
+  function handleUpdateUser(name, email) {
+    return mainApi.updateUserInfo(name, email, localStorage.getItem('jwt'))
+      .then((data) => {
+        setCurrentUser(data);
+        setIsLogged(true);
+        history.push('/movies');
+      })
+      .catch((err) => {
+        openPopup('Не удалось обновить данные');
+      })
+  }
+
+  function handleLogout() {
+    setIsLogged(false);
+    localStorage.removeItem('jwt');
+    history.push('/')
+  }
+
+  // Film functions
+
   async function saveMovie(movie) {
     return mainApi.handleSaveMovie(movie, localStorage.getItem('jwt'))
       .then(() => {
         updateSavedMovies();
       })
       .catch((err) => {
-        openError(err);
+        openPopup('Не удалось сохранить фильм');
       })
   }
 
@@ -158,7 +202,7 @@ function App() {
         updateSavedMovies();
       })
       .catch((err) => {
-        openError(err);
+        openPopup('Не удалось удалить фильм из сохранённых');
       })
   }
 
@@ -175,69 +219,8 @@ function App() {
     return filteredMovies;
   }
 
-  function handleSearchForm(query, shortFilmsDecision, areSaved) {
-    setHasAnswers(true);
-    setHasErrors(false);
-    setIsSearching(true);
-    setTimeout(() => {
-      filterMovies(query, shortFilmsDecision, areSaved)
-        .then((filteredMovies) => {
-          if (!areSaved) { setSearchedMovieList(filteredMovies) }
-          else { setSavedSearchedMovieList(filteredMovies); }
-          setHasAnswers(true);
-        })
-        .catch((err) => {
-          openError(err);
-          setHasErrors(true);
-        })
-        .finally(() => {
-          setIsSearching(false);
-        })
-    }, 1000)
-  }
-
-  function handleLogin(email, password) {
-    return mainApi.handleLogin(email, password)
-      .then(({ token }) => {
-        checkToken(token);
-        localStorage.setItem('jwt', token);
-        history.push('/movies');
-      })
-      .catch((err) => {
-        openError(err);
-      })
-  }
-
-  function handleLogout() {
-    setIsLogged(false);
-    localStorage.removeItem('jwt');
-    history.push('/')
-  }
-
   function checkToken(jwt) {
     return mainApi.checkUserToken(jwt)
-      .then((data) => {
-        setCurrentUser(data);
-        setIsLogged(true);
-        history.push('/movies');
-      })
-      .catch((err) => {
-        openError(err);
-      })
-  }
-
-  function handleRegistration(name, email, password) {
-    return mainApi.handleRegister(name, email, password)
-      .then(() => {
-        history.push('/signin')
-      })
-      .catch((err) => {
-        openError(err);
-      })
-  }
-
-  function handleUpdateUser(name, email) {
-    return mainApi.updateUserInfo(name, email, localStorage.getItem('jwt'))
       .then((data) => {
         setCurrentUser(data);
         setIsLogged(true);
@@ -248,15 +231,15 @@ function App() {
       })
   }
 
-  // Error opening
+  // Popup
 
-  function openError(msg) {
-    setErrorMessage(msg || '');
-    setIsErrorOpened(true);
+  function openPopup(message) {
+    setIsPopupOpen(true);
+    setPopupMessage(message);
   }
 
-  function closeError() {
-    setIsErrorOpened(false);
+  function closePopup() {
+    setIsPopupOpen(false);
   }
 
   // Close and open navigation popup
@@ -276,7 +259,6 @@ function App() {
         <Switch>
           <ProtectedRoute
             openNavigationPopup={openNavigationPopup}
-            hasAnswers={hasAnswers}
             handleSearchForm={handleSearchForm}
             defaultCount={defaultCount}
             rowCount={rowCount}
@@ -330,6 +312,7 @@ function App() {
             <NotFoundPage />
           </Route>
         </Switch>
+        <InfoPopup isOpen={isPopupOpen} message={popupMessage} closePopup={closePopup} />
       </CurrentUserContext.Provider>
     </div >
   );

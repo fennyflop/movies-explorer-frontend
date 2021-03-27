@@ -23,7 +23,6 @@ const useForm = (callback, validate, validationInfo) => {
         event.persist();
         setValues(values => ({ ...values, [event.target.name]: event.target.value }));
         setErrors(validate(values, validationInfo));
-        console.log(errors);
     };
 
     return {

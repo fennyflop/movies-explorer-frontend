@@ -47,7 +47,7 @@ function Movie({ movie, handleSave, handleDelete, isInSavedMovies }) {
 
     return (
         <div className="movie">
-            <a target="_blank" href={movie.trailerLink || movie.trailer}><img className="movie__thumbnail" alt="thumbnail" src={thumbnail} /></a>
+            <a target="_blank" rel="noreferrer" href={movie.trailerLink || movie.trailer}><img className="movie__thumbnail" alt="thumbnail" src={thumbnail} /></a>
             <div className="movie__info">
                 <div className="movie__toolbar">
                     <h3 className="movie__title">{movie.nameRU}</h3>

@@ -8,9 +8,9 @@ function Header({ openNavigation, isLogged }) {
     const location = useLocation();
     return (
         <>
-            <header className={`header ${location.pathname == '/' ? 'header__landing' : ''}`}>
+            <header className={`header ${location.pathname === '/' ? 'header__landing' : ''}`}>
                 <Link to="/">
-                    <img className="header__logo" alt="logo-image" src={logo} />
+                    <img className="header__logo" alt="HeadHome" src={logo} />
                 </Link>
                 {
                     isLogged ?

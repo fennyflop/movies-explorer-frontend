@@ -28,10 +28,6 @@ function MoviesCardList({ defaultCount, rowCount, areSaved, handleSave, handleDe
         setDisplayedMovies(accumulator);
     }, [movieList, elements]);
 
-    useEffect(() => {
-        console.log(movieList);
-    }, [isSearching])
-
     function handleMoreMovies() {
         if (rowCount < movieList.length) {
             return setElements(elements + rowCount);

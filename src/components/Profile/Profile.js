@@ -1,7 +1,6 @@
 import './Profile.css';
 import useForm from '../FormHooks/FormHooks';
 import { validateProfileUpdate } from '../../utils/formValidation';
-import { useState } from 'react';
 
 function Profile({ handleLogout, handleUpdateUser, userName, userEmail }) {
 

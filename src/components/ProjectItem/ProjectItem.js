@@ -1,5 +1,4 @@
 import './ProjectItem.css';
-import { Link } from 'react-router-dom';
 import arrow from '../../images/arrow.png';
 
 function ProjectItem({ name, link }) {
