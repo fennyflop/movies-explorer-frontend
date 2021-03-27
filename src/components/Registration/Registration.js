@@ -3,6 +3,7 @@ import UserForm from '../UserForm/UserForm';
 import useForm from '../FormHooks/FormHooks';
 import { validateSignupValues } from '../../utils/formValidation';
 import { Route, Redirect } from "react-router-dom";
+import { useEffect } from 'react';
 
 function Registration({ handleRegistration, isLogged }) {
     const { values, errors, handleChange, handleSubmit } = useForm(handleForm, validateSignupValues);
@@ -11,10 +12,14 @@ function Registration({ handleRegistration, isLogged }) {
         handleRegistration(values.name, values.email, values.password);
     }
 
+    useEffect(() => {
+        handleSubmit(); // Сразу начинает валидироваться
+    }, [Registration])
+
     return (
         <Route path="/signup">
             {
-                () => !isLogged ? <UserForm handleSubmit={handleSubmit} question="Уже зарегистрированы?" name="registration" linkName="Войти" submitName="Зарегистрироваться" title="Добро пожаловать!" toPath="/signin">
+                () => !isLogged ? <UserForm handleSubmit={handleSubmit} question="Уже зарегистрированы?" name="registration" linkName="Войти" submitName="Зарегистрироваться" title="Добро пожаловать!" toPath="/signin" isDisabled={Object.keys(errors).length !== 0}>
                     <fieldset className="registration__fieldset" >
                         <label className="registration__label" htmlFor="username">Имя</label>
                         <input className={`registration__input ${errors.name ? 'registration__input-error' : ''}`} required autoComplete="off" name="name" placeholder="Введите своё имя" value={values.name} onChange={handleChange} />

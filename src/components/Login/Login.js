@@ -3,14 +3,19 @@ import UserForm from '../UserForm/UserForm';
 import useForm from '../FormHooks/FormHooks';
 import { validateLoginValues } from '../../utils/formValidation';
 import { Route, Redirect } from "react-router-dom";
+import { useEffect } from 'react';
 
 function Login({ handleLogin, isLogged }) {
 
     const { values, errors, handleChange, handleSubmit } = useForm(handleForm, validateLoginValues);
 
     function handleForm() {
-        handleLogin(values.email, values.password);
+        handleLogin(values.email, values.password); // Сразу начинает валидироваться
     }
+
+    useEffect(() => {
+        handleSubmit();
+    })
 
     return (
         <Route path="/signin">
