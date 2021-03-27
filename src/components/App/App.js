@@ -291,12 +291,12 @@ function App() {
             path="/movies"
             loggedIn={isLogged}
             component={MoviesComponents}
-            hasAnswers={savedMovies.length !== 0}
+            hasAnswers={movieList.length !== 0}
           />
           <ProtectedRoute
             openNavigationPopup={openNavigationPopup}
             handleNavgiationPopup={closeNavgiationPopup}
-            movieList={savedSearchedMovieList.length === 0 ? savedMovies : savedSearchedMovieList}
+            movieList={savedSearchedMovieList}
             // Если нет найденных фильмов, высвечиваем все сохранённые ^
             handleDelete={deleteMovie}
             isOpen={navigationOpened}
@@ -306,7 +306,9 @@ function App() {
             areSaved={true}
             path="/saved-movies"
             loggedIn={isLogged}
-            hasAnswers={!movieList.length !== 0}
+            hasAnswers={savedMovies.length !== 0}
+            hasErrors={hasErrors}
+            isSearching={isSearching}
             component={MoviesComponents} />
           <ProtectedRoute openNavigation={openNavigationPopup} handleLogout={handleLogout} path="/profile" userName={currentUser && currentUser.name} userEmail={currentUser ? currentUser.email : ''} component={ProfilePage} loggedIn={isLogged} handleUpdateUser={handleUpdateUser} />
           <Route exact path="/">

@@ -29,7 +29,7 @@ function MoviesCardList({ defaultCount, rowCount, areSaved, handleSave, handleDe
     }, [movieList, elements]);
 
     useEffect(() => {
-        console.log(isSearching);
+        console.log(movieList);
     }, [isSearching])
 
     function handleMoreMovies() {

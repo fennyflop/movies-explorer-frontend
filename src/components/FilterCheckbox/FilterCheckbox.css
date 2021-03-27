@@ -33,7 +33,7 @@
 	transform: translateX(-100%);
 }
 .toggler__checkbox:checked  + .toggler__label {
-    transition: all 2s cubic-bezier(0.23, 1, 0.320, 1);
+    transition: all .1s ease-in-out;
     background-color: #3DDC84;
 }
 
