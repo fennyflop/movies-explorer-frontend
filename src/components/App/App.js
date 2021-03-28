@@ -110,8 +110,7 @@ function App() {
           else { setSavedSearchedMovieList(filteredMovies); }
           setHasAnswers(true);
         })
-        .catch((err) => {
-          openPopup(err);
+        .catch(() => {
           setHasErrors(true);
         })
         .finally(() => {

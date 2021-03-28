@@ -1,37 +1,35 @@
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-import useForm from '../FormHooks/FormHooks';
-import { useEffect, useState } from 'react';
+import { useFormWithValidation } from '../FormHooks/useForm';
+import { useState } from 'react';
 
 function SearchForm({ handleSearchForm, hasAnswers, movieList, areSaved, hasErrors }) {
 
-    const [query, setQuery] = useState('');
-    const [errorShown, setErrorShown] = useState(false);
     const [shortFilmsDecision, setShortFilmsDecision] = useState(false);
+    const { values, handleChange, customHandleChange, errors, isValid, resetForm } = useFormWithValidation();
 
-    function handleQuery(evt) {
-        setQuery(evt.target.value);
+    function handleSubmit(evt) {
+        if (evt) evt.preventDefault();
+        handleQuery(shortFilmsDecision);
     }
 
-    function handleSearchSubmit(evt) {
-        evt.preventDefault();
-        if (!query) return setErrorShown(true);
-        setErrorShown(false);
-        handleSearchForm(query, shortFilmsDecision, areSaved);
+    function handleQuery(decision) {
+        if (!isValid) return;
+        handleSearchForm(values.query, decision, areSaved);
     }
 
     function handleCheckboxChange(decision) {
         setShortFilmsDecision(decision);
-        handleSearchForm(query, decision, areSaved);
+        handleQuery(decision);
     }
 
     return (
-        <form className="search" onSubmit={handleSearchSubmit}>
+        <form className="search" onSubmit={handleSubmit}>
             <div className="search__query">
-                <input className="search__input" type="text" autoComplete="off" placeholder="Фильм" onChange={handleQuery} value={query} name="query" placeholder={!(!movieList.length && !hasErrors) ? 'Фильм' : 'Ничего не найдено'} />
-                <button className="search__submit">Поиск</button>
+                <input className="search__input" type="text" autoComplete="off" placeholder="Фильм" onChange={handleChange} value={values.query} name="query" placeholder={!(!movieList.length && !hasErrors) ? 'Фильм' : 'Ничего не найдено'} required />
+                <button className="search__submit" disabled={!isValid}>Поиск</button>
             </div>
-            <p className={`search__error ${errorShown && 'search__error-shown'}`}>Нужно ввести ключевое слово</p>
+            <p className={`search__error ${errors.query && 'search__error-shown'}`}>{errors.query}</p>
             <FilterCheckbox onChange={handleCheckboxChange} />
         </form>
     );

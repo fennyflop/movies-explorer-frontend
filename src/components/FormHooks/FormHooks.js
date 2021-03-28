@@ -14,6 +14,7 @@ const useForm = (callback, validate, validationInfo) => {
         if (Object.keys(errors).length === 0 && isSubmitting) {
             callback();
             setIsSubmitting(false);
+            console.log('CALLBACK')
         }
     }, [errors]);
 
@@ -21,12 +22,15 @@ const useForm = (callback, validate, validationInfo) => {
         if (event) event.preventDefault();
         setErrors(validate(values));
         setIsSubmitting(true);
+        console.log('FORM SUBMITED');
     };
 
     const handleChange = (event) => {
-        event.persist();
-        setValues(values => ({ ...values, [event.target.name]: event.target.value }));
+        // event.persist();
+        console.log(event.target.value);
+        setValues({ ...values, [event.target.name]: event.target.value });
         setErrors(validate(values, validationInfo));
+        console.log(values);
     };
 
     return {

@@ -13,10 +13,6 @@
     border: 1.5px solid rgba(170, 170, 170, .2);
     display: flex;
 }
-.search__query:hover {
-    transition: all .3s ease-in-out;
-    box-shadow: 0 0 5px rgba(66, 133, 244, .5);
-}
 .search__input {
     width: 100%;
     outline: none;
@@ -52,10 +48,6 @@
 }
 .search__submit:disabled {
     opacity: .8;
-}
-.search__submit:disabled:hover {
-    color: white;
-    background: #4285F4;
 }
 .search__checkbox {
     height: 0;
