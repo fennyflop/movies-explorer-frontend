@@ -16,12 +16,13 @@ function Movie({ movie, handleSave, handleDelete, isInSavedMovies }) {
         return null;
     }
 
-    const thumbnail = movie._id ? movie.image : `https://api.nomoreparties.co${movie.image.url}`;
+    const thumbnail = movie._id ? movie.image : (movie.image ? `https://api.nomoreparties.co${movie.image.url}` : 'https://images.theconversation.com/files/350865/original/file-20200803-24-50u91u.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=675.0&fit=crop');
 
     // Time conversion
     function convertTime() {
         const { duration } = movie;
-        return `${Math.floor(duration / 60) || 0}ч${Math.floor(duration % 60)}м`;
+        return `${Math.floor(duration / 60) || 0
+            } ч${Math.floor(duration % 60)} м`;
     }
     // Get saved-movies
     function getSavedMovies() {
@@ -50,7 +51,7 @@ function Movie({ movie, handleSave, handleDelete, isInSavedMovies }) {
             <div className="movie__info">
                 <div className="movie__toolbar">
                     <h3 className="movie__title">{movie.nameRU}</h3>
-                    {isInSavedMovies ? <button className="movie__delete" onClick={deleteMovie}></button> : <button className={`movie__save ${isSaved && 'movie__saved'}`} onClick={handleSaveClick}></button>}
+                    {isInSavedMovies ? <button className="movie__delete" onClick={deleteMovie}></button> : <button className={`movie__save ${isSaved && 'movie__saved'} `} onClick={handleSaveClick}></button>}
                 </div>
                 <p className="movie__duration">{convertTime(movie.duration)}</p>
             </div>
