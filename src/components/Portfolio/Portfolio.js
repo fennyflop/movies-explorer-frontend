@@ -1,6 +1,5 @@
 import './Portfolio.css';
 import ProjectItem from '../ProjectItem/ProjectItem';
-import arrow from '../../images/arrow.png';
 
 function Portfolio() {
     return (

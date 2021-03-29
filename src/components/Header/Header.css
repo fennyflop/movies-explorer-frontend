@@ -92,6 +92,9 @@
 .header__burger {
     display: none;
 }
+.header__burger:hover {
+    cursor: pointer;
+}
 
 @media screen and (max-width: 768px) {
     .header__link {

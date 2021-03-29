@@ -1,0 +1,16 @@
+.error {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 300px;
+    margin: auto;
+}
+.error__icon {
+    width: 200px;
+    height: 200px;
+}
+.error__text {
+    color: #EE3465;
+    text-align: center;
+}
